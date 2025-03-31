@@ -600,10 +600,7 @@
         }
       }
       
-      // For page 20, the check is done with the Unlock button.
-      if (currentPage === 20) {
-        return;
-      }
+      // Removed check for page 20 so the next button works without verifying page20's answer
       
       if (currentPage < totalPages) {
         currentPage++;
