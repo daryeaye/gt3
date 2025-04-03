@@ -58,6 +58,53 @@
       margin: 0 5px;
       cursor: pointer;
     }
+    /* --- Side Widget CSS --- */
+    #side-widget {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 200px;
+      height: 200px;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+      font-family: 'Caveat', cursive;
+      z-index: 999;
+    }
+    #side-widget p.title {
+      font-size: 24px;
+      text-align: center;
+      margin: 0 0 10px;
+    }
+    #side-widget button,
+    #side-widget a {
+      display: block;
+      margin: 0 auto;
+      font-size: 20px;
+      cursor: pointer;
+      text-align: center;
+      background: lightblue;
+      border: none;
+      padding: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+    /* Selection overlay styles */
+    #selection-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+      z-index: 1000;
+    }
+    #selection-box {
+      position: absolute;
+      border: 2px dashed #000;
+      background: rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 <body>
@@ -72,6 +119,100 @@
       <button id="next-btn" onclick="nextPage()">Next</button>
     </div>
   </div>
+  
+  <!-- --- Side Widget HTML --- -->
+  <div id="side-widget">
+    <p class="title">Need translation?</p>
+    <button id="select-text">Select Text</button>
+    <p>
+      <a href="https://translate.google.com/?sl=en&tl=es&op=images" target="_blank">
+        Click me and paste from clipboard
+      </a>
+    </p>
+  </div>
+  
+  <!-- --- Side Widget and Main Code Scripts --- -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    document.getElementById('select-text').addEventListener('click', function() {
+      // Create overlay for user selection
+      const overlay = document.createElement('div');
+      overlay.id = 'selection-overlay';
+      document.body.appendChild(overlay);
+      
+      let startX, startY, selectionBox;
+      
+      overlay.addEventListener('mousedown', function(e) {
+        startX = e.clientX;
+        startY = e.clientY;
+        
+        selectionBox = document.createElement('div');
+        selectionBox.id = 'selection-box';
+        selectionBox.style.left = startX + 'px';
+        selectionBox.style.top = startY + 'px';
+        selectionBox.style.width = '0px';
+        selectionBox.style.height = '0px';
+        overlay.appendChild(selectionBox);
+        
+        function mouseMoveHandler(e) {
+          const currentX = e.clientX;
+          const currentY = e.clientY;
+          const rectLeft = Math.min(startX, currentX);
+          const rectTop = Math.min(startY, currentY);
+          const rectWidth = Math.abs(currentX - startX);
+          const rectHeight = Math.abs(currentY - startY);
+          selectionBox.style.left = rectLeft + 'px';
+          selectionBox.style.top = rectTop + 'px';
+          selectionBox.style.width = rectWidth + 'px';
+          selectionBox.style.height = rectHeight + 'px';
+        }
+        
+        function mouseUpHandler(e) {
+          overlay.removeEventListener('mousemove', mouseMoveHandler);
+          overlay.removeEventListener('mouseup', mouseUpHandler);
+          
+          const boxRect = selectionBox.getBoundingClientRect();
+          document.body.removeChild(overlay);
+          
+          // Capture the main content area (using "container" from your main code)
+          const target = document.getElementById('container');
+          const targetRect = target.getBoundingClientRect();
+          
+          html2canvas(target, { useCORS: true, allowTaint: false }).then(canvas => {
+            // Calculate scale factor for accurate cropping
+            const scaleFactor = canvas.width / targetRect.width;
+            const sx = (boxRect.left - targetRect.left) * scaleFactor;
+            const sy = (boxRect.top - targetRect.top) * scaleFactor;
+            const sWidth = boxRect.width * scaleFactor;
+            const sHeight = boxRect.height * scaleFactor;
+            
+            const croppedCanvas = document.createElement('canvas');
+            croppedCanvas.width = sWidth;
+            croppedCanvas.height = sHeight;
+            const ctx = croppedCanvas.getContext('2d');
+            ctx.drawImage(canvas, sx, sy, sWidth, sHeight, 0, 0, sWidth, sHeight);
+            
+            // Copy the cropped image to the clipboard
+            croppedCanvas.toBlob(blob => {
+              if (blob) {
+                const item = new ClipboardItem({ 'image/png': blob });
+                navigator.clipboard.write([item]).then(() => {
+                  alert('Screenshot copied to clipboard.');
+                }).catch(err => {
+                  console.error('Failed to copy screenshot to clipboard', err);
+                  alert('Failed to copy screenshot to clipboard.');
+                });
+              }
+            });
+          });
+        }
+        
+        overlay.addEventListener('mousemove', mouseMoveHandler);
+        overlay.addEventListener('mouseup', mouseUpHandler);
+      });
+    });
+  </script>
+  
   <script>
     let currentPage = 1;
     const totalPages = 3;
