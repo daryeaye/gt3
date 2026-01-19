@@ -1,1 +1,808 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Lost Treasure Pt3 Master Li</title><link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet"><style>body,html{margin:0;padding:0;height:100vh;display:flex;justify-content:center;align-items:center;background:url('https://daryeaye.github.io/geotopia/thatsit.png') no-repeat center center fixed;background-size:cover}#app-container{display:flex;flex-direction:column;align-items:center}#header{width:960px;background:#eee;padding:10px;margin-bottom:10px}#container{position:relative;width:960px;height:540px;border:1px solid #ccc;background:white;overflow:hidden}#header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}#translation-widget span{vertical-align:middle}#translation-widget a{text-decoration:none}.page{position:absolute;top:0;left:0;width:960px;height:540px;display:none}.page.active{display:block}.box{position:absolute}input.typeable{position:absolute;font-family:"Comic Sans MS",sans-serif;font-size:22px;border:1px solid black;background:rgba(173,216,230,0.5);width:100%;height:100%;box-sizing:border-box}input.grayTypeable{position:absolute;font-family:"Comic Sans MS",sans-serif;font-size:18px;border:1px solid black;background:rgba(128,128,128,0.5);width:100%;height:100%;box-sizing:border-box}#progressBar{width:100%;background:#ccc;height:20px;margin-top:10px}#progress{width:0%;background:green;height:100%}#nav-buttons{margin-top:10px}button{font-family:"Caveat",cursive;font-size:20px;background-color:lightblue;border:none;padding:10px 20px;margin:0 5px;cursor:pointer}#unlockBtn{position:absolute;left:391px;top:420px;font-family:"Comic Sans MS",sans-serif;font-size:18px;padding:5px 10px;cursor:pointer}.clickable-box{position:absolute;left:310px;top:435px;width:370px;height:45px;background:rgba(255,255,255,0.5);border:1px solid #000;cursor:pointer}</style><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script></head><body><div id="app-container"><div id="header"><div id="header-top"><div><input type="text" id="username" placeholder="Enter your name" style="font-size:16px; padding:5px;" /><button id="confirmBtn" onclick="confirmName()">Confirm</button></div></div><div id="progressBar"><div id="progress"></div></div><span id="progressText">0% completed</span></div><div id="container"><div id="page1" class="page active" style="background:url('https://daryeaye.github.io/gt3/3-01.jpg') no-repeat center center; background-size:contain;"><a href="https://daryeaye.github.io/geotopia/GT1%20Officer+.pdf" target="_blank"><div class="box" style="left:12px; top:391px; width:128px; height:112px; border:1px solid red;"></div></a><a href="https://daryeaye.github.io/geotopia/GT1%20Professor+.pdf" target="_blank"><div class="box" style="left:151px; top:391px; width:128px; height:112px; border:1px solid red;"></div></a><a href="https://daryeaye.github.io/geotopia/GT1%20Hacker+.pdf" target="_blank"><div class="box" style="left:290px; top:391px; width:128px; height:112px; border:1px solid red;"></div></a><a href="https://www.youtube.com/watch?v=Fj98o3aFfk8" target="_blank" style="position:absolute; left:134px; top:505px; width:177px; height:32px; background-color:rgba(128,128,128,0.9); font-family:'Caveat',cursive;font-size:22px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:white;">What is the role for?</a></div><div id="page2" class="page" style="background:url('https://daryeaye.github.io/gt3/3-02.jpg') no-repeat center center; background-size:contain;"></div><div id="page3" class="page" style="background:url('https://daryeaye.github.io/gt3/3-03.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:54px; top:31px; width:155px; height:119px;"><img id="pic1" src="https://daryeaye.github.io/gt3/ID-1.jpg" style="width:100%; height:100%; display:none;" /></div><div class="box" style="left:54px; top:150px; width:155px; height:119px;"><img id="pic2" src="https://daryeaye.github.io/gt3/ID-3.jpg" style="width:100%; height:100%; display:none;" /></div><div class="box" style="left:54px; top:269px; width:155px; height:119px;"><img id="pic3" src="https://daryeaye.github.io/gt3/ID-5.jpg" style="width:100%; height:100%; display:none;" /></div><div class="box" style="left:54px; top:388px; width:155px; height:119px;"><img id="pic4" src="https://daryeaye.github.io/gt3/ID-7.jpg" style="width:100%; height:100%; display:none;" /></div><div class="box" style="left:209px; top:31px; width:155px; height:119px;"><img id="pic5" src="https://daryeaye.github.io/gt3/ID-2.jpg" style="width:100%; height:100%; display:none;" /></div><div class="box" style="left:209px; top:150px; width:155px; height:119px;"><img id="pic6" src="https://daryeaye.github.io/gt3/ID-4.jpg" style="width:100%; height:100%; display:none;" /></div><div class="box" style="left:209px; top:269px; width:155px; height:119px;"><img id="pic7" src="https://daryeaye.github.io/gt3/ID-6.jpg" style="width:100%; height:100%; display:none;" /></div><div class="box" style="left:209px; top:388px; width:155px; height:119px;"><img id="pic8" src="https://daryeaye.github.io/gt3/ID-8.jpg" style="width:100%; height:100%; display:none;" /></div><div class="box" style="left:64px; top:96px; width:135px; height:51px;"><input type="text" id="answer1" class="typeable" placeholder="Answer" /></div><div class="box" style="left:64px; top:216px; width:135px; height:52px;"><input type="text" id="answer2" class="typeable" placeholder="Answer" /></div><div class="box" style="left:64px; top:336px; width:135px; height:52px;"><input type="text" id="answer3" class="typeable" placeholder="Answer" /></div><div class="box" style="left:64px; top:452px; width:135px; height:52px;"><input type="text" id="answer4" class="typeable" placeholder="Answer" style="font-size:12px;" /></div><div class="box" style="left:219px; top:96px; width:136px; height:51px;"><input type="text" id="answer5" class="typeable" placeholder="Answer" /></div><div class="box" style="left:219px; top:216px; width:136px; height:52px;"><input type="text" id="answer6" class="typeable" placeholder="Answer" style="font-size:12px;" /></div><div class="box" style="left:219px; top:334px; width:136px; height:52px;"><input type="text" id="answer7" class="typeable" placeholder="Answer" /></div><div class="box" style="left:219px; top:452px; width:136px; height:52px;"><input type="text" id="answer8" class="typeable" placeholder="Answer" /></div></div><div id="page4" class="page" style="background:url('https://daryeaye.github.io/gt3/3-04.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:117px; top:106px; width:112px; height:44px;"><input type="text" id="p4box1" class="grayTypeable" /></div><div class="box" style="left:73px; top:289px; width:56px; height:44px;"><input type="text" id="p4box2" class="grayTypeable" /></div><div class="box" style="left:302px; top:449px; width:49px; height:44px;"><input type="text" id="p4box3" class="grayTypeable" /></div></div><div id="page5" class="page" style="background:url('https://daryeaye.github.io/gt3/3-05.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:21px; top:105px; width:169px; height:44px;"><input type="text" id="p5box1" class="grayTypeable" /></div><div class="box" style="left:21px; top:271px; width:169px; height:44px;"><input type="text" id="p5box2" class="grayTypeable" /></div><div class="box" style="left:385px; top:439px; width:67px; height:44px;"><input type="text" id="p5box3" class="grayTypeable" /></div></div><div id="page6" class="page" style="background:url('https://daryeaye.github.io/gt3/3-06.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:427px; top:88px; width:169px; height:44px;"><input type="text" id="p6box1" class="grayTypeable" /></div><div class="box" style="left:406px; top:394px; width:62px; height:44px;"><input type="text" id="p6box2" class="grayTypeable" /></div></div><div id="page7" class="page" style="background:url('https://daryeaye.github.io/gt3/3-07.jpg') no-repeat center center; background-size:contain;"></div><div id="page8" class="page" style="background:url('https://daryeaye.github.io/gt3/3-08.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p8box1" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p8box2" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p8box3" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p8box4" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p8box5" class="grayTypeable" placeholder="Type here" /></div></div><div id="page9" class="page" style="background:url('https://daryeaye.github.io/gt3/3-09.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p9box1" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p9box2" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p9box3" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p9box4" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p9box5" class="grayTypeable" placeholder="Type here" /></div></div><div id="page10" class="page" style="background:url('https://daryeaye.github.io/gt3/3-10.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p10box1" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p10box2" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p10box3" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p10box4" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p10box5" class="grayTypeable" placeholder="Type here" /></div></div><div id="page11" class="page" style="background:url('https://daryeaye.github.io/gt3/3-11.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p11box1" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p11box2" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p11box3" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p11box4" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p11box5" class="grayTypeable" placeholder="Type here" /></div></div><div id="page12" class="page" style="background:url('https://daryeaye.github.io/gt3/3-12.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p12box1" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p12box2" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p12box3" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p12box4" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p12box5" class="grayTypeable" placeholder="Type here" /></div></div><div id="page13" class="page" style="background:url('https://daryeaye.github.io/gt3/3-13.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p13box1" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p13box2" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p13box3" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p13box4" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p13box5" class="grayTypeable" placeholder="Type here" /></div></div><div id="page14" class="page" style="background:url('https://daryeaye.github.io/gt3/3-14.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p14box1" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:219px; width:318px; height:44px;"><input type="text" id="p14box2" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p14box3" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p14box4" class="grayTypeable" placeholder="Type here" /></div></div><div id="page15" class="page" style="background:url('https://daryeaye.github.io/gt3/3-15.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p15box1" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:219px; width:318px; height:44px;"><input type="text" id="p15box2" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p15box3" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p15box4" class="grayTypeable" placeholder="Type here" /></div></div><div id="page16" class="page" style="background:url('https://daryeaye.github.io/gt3/3-16.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p16box1" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:219px; width:318px; height:44px;"><input type="text" id="p16box2" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p16box3" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p16box4" class="grayTypeable" placeholder="Type here" /></div></div><div id="page17" class="page" style="background:url('https://daryeaye.github.io/gt3/3-17.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p17box1" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:219px; width:318px; height:44px;"><input type="text" id="p17box2" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p17box3" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p17box4" class="grayTypeable" placeholder="Type here" /></div></div><div id="page18" class="page" style="background:url('https://daryeaye.github.io/gt3/3-18.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p18box1" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:219px; width:318px; height:44px;"><input type="text" id="p18box2" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p18box3" class="grayTypeable" placeholder="Type here" /></div><div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p18box4" class="grayTypeable" placeholder="Type here" /></div></div><div id="page19" class="page" style="background:url('https://daryeaye.github.io/gt3/3-19.jpg') no-repeat center center; background-size:contain;"></div><div id="page20" class="page" style="background:url('https://daryeaye.github.io/gt3/3-20.jpg') no-repeat center center; background-size:contain;"><div class="box" style="left:391px; top:373px; width:178px; height:44px;"><input type="text" id="p20box" class="grayTypeable" placeholder="Type here" /></div><button id="unlockBtn" onclick="unlockPage20()">Unlock</button></div><div id="page21" class="page" style="background:url('https://daryeaye.github.io/gt3/3-Final.jpg') no-repeat center center; background-size:contain;"><a href="https://daryeaye.github.io/gt3/boshi.html" target="_blank"><div class="clickable-box"></div></a></div></div><div id="nav-buttons"><button id="prev-btn" onclick="prevPage()">Previous</button><button id="next-btn" onclick="nextPage()">Next</button></div></div><script>let currentPage=1,totalPages=21,maxPageVisited=1;const expectedAnswers={"answer1":"opposite","answer2":"ed","answer3":"adjacent","answer4":"complementary","answer5":"54","answer6":"supplementary","answer7":"180","answer8":"27"};function checkAndReveal(a,e,p){const i=document.getElementById(a);if(i.value.trim().toLowerCase()===e){document.getElementById(p).style.display="block";i.style.display="none";return!0}return!1}function setupPage3Listeners(){for(let [a,e]of Object.entries(expectedAnswers)){let num=a.replace("answer",""),p="pic"+num;document.getElementById(a).addEventListener("input",function(){checkAndReveal(a,e,p)})}}function updateProgress(){const p=(maxPageVisited/totalPages)*100;document.getElementById("progress").style.width=p+"%";document.getElementById("progressText").innerText=p.toFixed(0)+"% completed"}function showPage(p){for(let i=1;i<=totalPages;i++)document.getElementById("page"+i).classList.remove("active");document.getElementById("page"+p).classList.add("active");if(p===1){document.getElementById("prev-btn").style.display="none";document.getElementById("next-btn").style.display="inline-block"}else if(p===totalPages){document.getElementById("prev-btn").style.display="inline-block";document.getElementById("next-btn").style.display="none"}else{document.getElementById("prev-btn").style.display="inline-block";document.getElementById("next-btn").style.display="inline-block"}updateProgress()}function nextPage(){if(currentPage===6){for(let i=1;i<=8;i++){if(document.getElementById("pic"+i).style.display!=="block"){alert("❌Stop. You need the visitor's pass to move on!(Go back to the page with Master Li and input your answers for the pass)");return}}}if(currentPage>=8&&currentPage<=18){let id=(currentPage<=13?"p"+currentPage+"box5":"p"+currentPage+"box4"),inp=document.getElementById(id),exp={8:"20",9:"5",10:"29",11:"26",12:"8",13:"19",14:"18",15:"54",16:"20",17:"7",18:"45"};if(!inp||inp.value.trim()!==exp[currentPage]){alert("🚫 Incorrect house number.");return}}currentPage<totalPages&&(currentPage++,currentPage>maxPageVisited&&(maxPageVisited=currentPage),showPage(currentPage))}function prevPage(){currentPage>1&&(currentPage--,showPage(currentPage))}function unlockPage20(){const i=document.getElementById("p20box"),v=i.value.trim().toLowerCase();if(v==="41.5li"){i.style.display="none";window.open("https://daryeaye.github.io/geotopia/bamu.pdf","_blank");currentPage++;currentPage>maxPageVisited&&(maxPageVisited=currentPage),showPage(currentPage)}else if(v==="41.5"){alert("✅Great! Now ask the Merchant to help.")}else{alert("❗Nothing happened. Master Li is waiting.")}}function confirmName(){const n=document.getElementById("username"),name=n.value.trim();if(name!==""){localStorage.setItem("username",name);n.disabled=!0;alert("Name confirmed as: "+name)}else alert("Please enter a name.")}function setupPersistence(){const n=localStorage.getItem("username"),ni=document.getElementById("username");n!==null&&n!==""&&(ni.value=n,ni.disabled=!0);document.querySelectorAll("input[type='text']").forEach(e=>{const key=e.id,stored=localStorage.getItem(key);stored!==null&&(e.value=stored),e.addEventListener("input",()=>{localStorage.setItem(key,e.value)})})}document.addEventListener("DOMContentLoaded",function(){showPage(currentPage);setupPersistence();setupPage3Listeners()});</script><style>#side-widget{position:fixed;top:20px;right:20px;width:200px;height:200px;background:#f9f9f9;border:1px solid #ccc;padding:10px;box-sizing:border-box;font-family:'Caveat',cursive;z-index:999}#side-widget p.title{font-size:24px;text-align:center;margin:0 0 10px}#side-widget button,#side-widget a{display:block;margin:0 auto;font-size:20px;cursor:pointer;text-align:center;background:lightblue;border:none;padding:10px;text-decoration:none;color:inherit}#selection-overlay{position:fixed;top:0;left:0;width:100%;height:100%;cursor:crosshair;z-index:1000}#selection-box{position:absolute;border:2px dashed red;background:rgba(0,0,0,0.1)}</style><div id="side-widget"><p class="title">Need translation?</p><button id="select-text">Select Text</button><p><a href="https://translate.google.com/?sl=en&tl=es&op=images" target="_blank">Click me and paste from clipboard</a></p></div><script>document.getElementById("select-text").addEventListener("click",function(){const o=document.createElement("div");o.id="selection-overlay";document.body.appendChild(o);let sX,sY,sB;o.addEventListener("mousedown",function(e){sX=e.clientX;sY=e.clientY;sB=document.createElement("div");sB.id="selection-box";sB.style.left=sX+"px";sB.style.top=sY+"px";sB.style.width="0px";sB.style.height="0px";o.appendChild(sB);function mH(e){const cX=e.clientX,cY=e.clientY,l=Math.min(sX,cX),t=Math.min(sY,cY),w=Math.abs(cX-sX),h=Math.abs(cY-sY);sB.style.left=l+"px";sB.style.top=t+"px";sB.style.width=w+"px";sB.style.height=h+"px"}function uH(e){o.removeEventListener("mousemove",mH);o.removeEventListener("mouseup",uH);const r=sB.getBoundingClientRect();document.body.removeChild(o);const T=document.getElementById("container"),TR=T.getBoundingClientRect();html2canvas(T,{useCORS:true,allowTaint:false}).then(canvas=>{const sf=canvas.width/TR.width,sx=(r.left-TR.left)*sf,sy=(r.top-TR.top)*sf,sw=r.width*sf,sh=r.height*sf,cc=document.createElement("canvas");cc.width=sw;cc.height=sh;const ctx=cc.getContext("2d");ctx.drawImage(canvas,sx,sy,sw,sh,0,0,sw,sh);cc.toBlob(blob=>{if(blob){const itm=new ClipboardItem({"image/png":blob});navigator.clipboard.write([itm]).then(()=>{alert("Screenshot copied to clipboard.")}).catch(err=>{console.error("Failed to copy screenshot to clipboard",err);alert("Failed to copy screenshot to clipboard.")})}})})}o.addEventListener("mousemove",mH);o.addEventListener("mouseup",uH)})});<!-- @XDY. All rights reserved. This code is the intellectual property of XDY. Unauthorized copying, reproduction, or redistribution is strictly prohibited. For educational use only. Contact the author for permissions. --></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lost Treasure Pt3 Master Li</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- PDF.js (Google Sites-safe PDF rendering) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      overflow-y: auto;
+      background: url('https://daryeaye.github.io/geotopia/thatsit.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 10px 0 40px;
+      box-sizing: border-box;
+    }
+
+    #app-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    /* Sticky header so progress bar is always visible */
+    #header {
+      width: 960px;
+      background: #eee;
+      padding: 10px;
+      margin-bottom: 10px;
+
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    #header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    #container {
+      position: relative;
+      width: 960px;
+      height: 540px;
+      border: 1px solid #ccc;
+      background: white;
+      overflow: hidden;
+    }
+
+    #translation-widget span { vertical-align: middle; }
+    #translation-widget a { text-decoration: none; }
+
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 960px;
+      height: 540px;
+      display: none;
+    }
+    .page.active { display: block; }
+
+    .box { position: absolute; }
+
+    input.typeable {
+      position: absolute;
+      font-family: "Comic Sans MS", sans-serif;
+      font-size: 22px;
+      border: 1px solid black;
+      background: rgba(173,216,230,0.5);
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    input.grayTypeable {
+      position: absolute;
+      font-family: "Comic Sans MS", sans-serif;
+      font-size: 18px;
+      border: 1px solid black;
+      background: rgba(128,128,128,0.5);
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    #progressBar {
+      width: 100%;
+      background: #ccc;
+      height: 20px;
+      margin-top: 10px;
+      position: relative;
+    }
+
+    #progress {
+      width: 0%;
+      background: green;
+      height: 100%;
+    }
+
+    button {
+      font-family: "Caveat", cursive;
+      font-size: 20px;
+      background-color: lightblue;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    #unlockBtn {
+      position: absolute;
+      left: 391px;
+      top: 420px;
+      font-family: "Comic Sans MS", sans-serif;
+      font-size: 18px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .clickable-box {
+      position: absolute;
+      left: 310px;
+      top: 435px;
+      width: 370px;
+      height: 45px;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid #000;
+      cursor: pointer;
+    }
+
+    /* Main area wrapper so nav buttons don't shift the canvas */
+    #main-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    #main-wrapper {
+      position: relative;
+      width: 960px;
+    }
+
+    /* Prev/Next: left side, vertically centered, close to canvas */
+    #nav-buttons {
+      position: absolute;
+      font-size: 30px;      /* bigger text */
+      padding: 24px 36px;   /* bigger button */
+      top: 50%;
+      left: -150px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 0;
+    }
+
+    /* ==============================
+       SECOND CANVAS (Role selection)
+       Stage is 960x540 (same as main)
+       ============================== */
+    #role-container {
+      position: relative;
+      width: 960px;
+      height: 540px;
+      border: 1px solid #ccc;
+      background: #fff;
+      overflow: hidden;
+      margin-top: 10px;
+      box-sizing: border-box;
+    }
+
+    #role-stage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 960px;
+      height: 540px;
+      background: url('https://daryeaye.github.io/geotopia/role.jpg') no-repeat center/cover;
+      z-index: 1;
+    }
+
+    .role-hotspot {
+      position: absolute;
+      background: rgba(255,0,0,0); /* invisible */
+      border: none;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    #pdfViewer {
+      position: absolute;
+      inset: 0;
+      display: none;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: #fff;
+      z-index: 5;
+    }
+
+    .pdfPageCanvas {
+      display: block;
+      margin: 12px auto;
+      background: white;
+    }
+
+    #pdfStatus {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-family: "Comic Sans MS", sans-serif;
+      font-size: 14px;
+      color: #111;
+      background: rgba(255,255,255,0.85);
+      padding: 6px 10px;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 6px;
+      z-index: 10;
+      display: none;
+    }
+
+    /* When PDF is active: hide role-stage (background + hotspots) */
+    #role-container.pdf-mode #role-stage {
+      display: none;
+    }
+
+    /* ==============================
+       SIDE WIDGET (translation)
+       ============================== */
+    #side-widget {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 200px;
+      height: 200px;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+      font-family: 'Caveat', cursive;
+      z-index: 999;
+    }
+
+    #side-widget p.title {
+      font-size: 24px;
+      text-align: center;
+      margin: 0 0 10px;
+    }
+
+    #side-widget button, #side-widget a {
+      display: block;
+      margin: 0 auto;
+      font-size: 20px;
+      cursor: pointer;
+      text-align: center;
+      background: lightblue;
+      border: none;
+      padding: 10px;
+      text-decoration: none;
+      color: inherit;
+      font-family: 'Caveat', cursive;
+    }
+
+    #selection-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+      z-index: 1000;
+    }
+
+    #selection-box {
+      position: absolute;
+      border: 2px dashed red;
+      background: rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app-container">
+    <div id="header">
+      <div id="header-top">
+        <div>
+          <input type="text" id="username" placeholder="Enter your name" style="font-size:16px; padding:5px;" />
+          <button id="confirmBtn" onclick="confirmName()">Confirm</button>
+        </div>
+      </div>
+      <div id="progressBar"><div id="progress"></div></div>
+      <span id="progressText">0% completed</span>
+    </div>
+
+    <div id="main-area">
+      <div id="main-wrapper">
+        <div id="nav-buttons">
+          <button id="prev-btn" onclick="prevPage()">Previous</button>
+          <button id="next-btn" onclick="nextPage()">Next</button>
+        </div>
+
+        <div id="container">
+          <!-- Page 1: REMOVED the 3 role PDF boxes and REMOVED the "What is the role for?" button -->
+          <div id="page1" class="page active" style="background:url('https://daryeaye.github.io/gt3/3-01.jpg') no-repeat center center; background-size:contain;"></div>
+
+          <div id="page2" class="page" style="background:url('https://daryeaye.github.io/gt3/3-02.jpg') no-repeat center center; background-size:contain;"></div>
+
+          <div id="page3" class="page" style="background:url('https://daryeaye.github.io/gt3/3-03.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:54px; top:31px; width:155px; height:119px;"><img id="pic1" src="https://daryeaye.github.io/gt3/ID-1.jpg" style="width:100%; height:100%; display:none;" /></div>
+            <div class="box" style="left:54px; top:150px; width:155px; height:119px;"><img id="pic2" src="https://daryeaye.github.io/gt3/ID-3.jpg" style="width:100%; height:100%; display:none;" /></div>
+            <div class="box" style="left:54px; top:269px; width:155px; height:119px;"><img id="pic3" src="https://daryeaye.github.io/gt3/ID-5.jpg" style="width:100%; height:100%; display:none;" /></div>
+            <div class="box" style="left:54px; top:388px; width:155px; height:119px;"><img id="pic4" src="https://daryeaye.github.io/gt3/ID-7.jpg" style="width:100%; height:100%; display:none;" /></div>
+            <div class="box" style="left:209px; top:31px; width:155px; height:119px;"><img id="pic5" src="https://daryeaye.github.io/gt3/ID-2.jpg" style="width:100%; height:100%; display:none;" /></div>
+            <div class="box" style="left:209px; top:150px; width:155px; height:119px;"><img id="pic6" src="https://daryeaye.github.io/gt3/ID-4.jpg" style="width:100%; height:100%; display:none;" /></div>
+            <div class="box" style="left:209px; top:269px; width:155px; height:119px;"><img id="pic7" src="https://daryeaye.github.io/gt3/ID-6.jpg" style="width:100%; height:100%; display:none;" /></div>
+            <div class="box" style="left:209px; top:388px; width:155px; height:119px;"><img id="pic8" src="https://daryeaye.github.io/gt3/ID-8.jpg" style="width:100%; height:100%; display:none;" /></div>
+
+            <div class="box" style="left:64px; top:96px; width:135px; height:51px;"><input type="text" id="answer1" class="typeable" placeholder="Answer" /></div>
+            <div class="box" style="left:64px; top:216px; width:135px; height:52px;"><input type="text" id="answer2" class="typeable" placeholder="Answer" /></div>
+            <div class="box" style="left:64px; top:336px; width:135px; height:52px;"><input type="text" id="answer3" class="typeable" placeholder="Answer" /></div>
+            <div class="box" style="left:64px; top:452px; width:135px; height:52px;"><input type="text" id="answer4" class="typeable" placeholder="Answer" style="font-size:12px;" /></div>
+            <div class="box" style="left:219px; top:96px; width:136px; height:51px;"><input type="text" id="answer5" class="typeable" placeholder="Answer" /></div>
+            <div class="box" style="left:219px; top:216px; width:136px; height:52px;"><input type="text" id="answer6" class="typeable" placeholder="Answer" style="font-size:12px;" /></div>
+            <div class="box" style="left:219px; top:334px; width:136px; height:52px;"><input type="text" id="answer7" class="typeable" placeholder="Answer" /></div>
+            <div class="box" style="left:219px; top:452px; width:136px; height:52px;"><input type="text" id="answer8" class="typeable" placeholder="Answer" /></div>
+          </div>
+
+          <div id="page4" class="page" style="background:url('https://daryeaye.github.io/gt3/3-04.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:117px; top:106px; width:112px; height:44px;"><input type="text" id="p4box1" class="grayTypeable" /></div>
+            <div class="box" style="left:73px; top:289px; width:56px; height:44px;"><input type="text" id="p4box2" class="grayTypeable" /></div>
+            <div class="box" style="left:302px; top:449px; width:49px; height:44px;"><input type="text" id="p4box3" class="grayTypeable" /></div>
+          </div>
+
+          <div id="page5" class="page" style="background:url('https://daryeaye.github.io/gt3/3-05.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:21px; top:105px; width:169px; height:44px;"><input type="text" id="p5box1" class="grayTypeable" /></div>
+            <div class="box" style="left:21px; top:271px; width:169px; height:44px;"><input type="text" id="p5box2" class="grayTypeable" /></div>
+            <div class="box" style="left:385px; top:439px; width:67px; height:44px;"><input type="text" id="p5box3" class="grayTypeable" /></div>
+          </div>
+
+          <div id="page6" class="page" style="background:url('https://daryeaye.github.io/gt3/3-06.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:427px; top:88px; width:169px; height:44px;"><input type="text" id="p6box1" class="grayTypeable" /></div>
+            <div class="box" style="left:406px; top:394px; width:62px; height:44px;"><input type="text" id="p6box2" class="grayTypeable" /></div>
+          </div>
+
+          <div id="page7" class="page" style="background:url('https://daryeaye.github.io/gt3/3-07.jpg') no-repeat center center; background-size:contain;"></div>
+
+          <div id="page8" class="page" style="background:url('https://daryeaye.github.io/gt3/3-08.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p8box1" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p8box2" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p8box3" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p8box4" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p8box5" class="grayTypeable" placeholder="Type here" /></div>
+          </div>
+
+          <div id="page9" class="page" style="background:url('https://daryeaye.github.io/gt3/3-09.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p9box1" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p9box2" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p9box3" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p9box4" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p9box5" class="grayTypeable" placeholder="Type here" /></div>
+          </div>
+
+          <div id="page10" class="page" style="background:url('https://daryeaye.github.io/gt3/3-10.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p10box1" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p10box2" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p10box3" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p10box4" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p10box5" class="grayTypeable" placeholder="Type here" /></div>
+          </div>
+
+          <div id="page11" class="page" style="background:url('https://daryeaye.github.io/gt3/3-11.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p11box1" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p11box2" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p11box3" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p11box4" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p11box5" class="grayTypeable" placeholder="Type here" /></div>
+          </div>
+
+          <div id="page12" class="page" style="background:url('https://daryeaye.github.io/gt3/3-12.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p12box1" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p12box2" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p12box3" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p12box4" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p12box5" class="grayTypeable" placeholder="Type here" /></div>
+          </div>
+
+          <div id="page13" class="page" style="background:url('https://daryeaye.github.io/gt3/3-13.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p13box1" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:608px; top:219px; width:108px; height:44px;"><input type="text" id="p13box2" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:219px; width:107px; height:44px;"><input type="text" id="p13box3" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p13box4" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p13box5" class="grayTypeable" placeholder="Type here" /></div>
+          </div>
+
+          <div id="page14" class="page" style="background:url('https://daryeaye.github.io/gt3/3-14.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p14box1" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:219px; width:318px; height:44px;"><input type="text" id="p14box2" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p14box3" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p14box4" class="grayTypeable" placeholder="Type here" /></div>
+          </div>
+
+          <div id="page15" class="page" style="background:url('https://daryeaye.github.io/gt3/3-15.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p15box1" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:219px; width:318px; height:44px;"><input type="text" id="p15box2" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p15box3" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p15box4" class="grayTypeable" placeholder="Type here" /></div>
+          </div>
+
+          <div id="page16" class="page" style="background:url('https://daryeaye.github.io/gt3/3-16.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p16box1" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:219px; width:318px; height:44px;"><input type="text" id="p16box2" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p16box3" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p16box4" class="grayTypeable" placeholder="Type here" /></div>
+          </div>
+
+          <div id="page17" class="page" style="background:url('https://daryeaye.github.io/gt3/3-17.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p17box1" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:219px; width:318px; height:44px;"><input type="text" id="p17box2" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p17box3" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p17box4" class="grayTypeable" placeholder="Type here" /></div>
+          </div>
+
+          <div id="page18" class="page" style="background:url('https://daryeaye.github.io/gt3/3-18.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:760px; top:70px; width:178px; height:44px;"><input type="text" id="p18box1" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:219px; width:318px; height:44px;"><input type="text" id="p18box2" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:475px; top:272px; width:340px; height:130px;"><input type="text" id="p18box3" class="grayTypeable" placeholder="Type here" /></div>
+            <div class="box" style="left:507px; top:411px; width:85px; height:44px;"><input type="text" id="p18box4" class="grayTypeable" placeholder="Type here" /></div>
+          </div>
+
+          <div id="page19" class="page" style="background:url('https://daryeaye.github.io/gt3/3-19.jpg') no-repeat center center; background-size:contain;"></div>
+
+          <div id="page20" class="page" style="background:url('https://daryeaye.github.io/gt3/3-20.jpg') no-repeat center center; background-size:contain;">
+            <div class="box" style="left:391px; top:373px; width:178px; height:44px;"><input type="text" id="p20box" class="grayTypeable" placeholder="Type here" /></div>
+            <button id="unlockBtn" onclick="unlockPage20()">Unlock</button>
+          </div>
+
+          <div id="page21" class="page" style="background:url('https://daryeaye.github.io/gt3/3-Final.jpg') no-repeat center center; background-size:contain;">
+            <a href="https://daryeaye.github.io/gt3/boshi.html" target="_blank"><div class="clickable-box"></div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==============================
+         SECOND CANVAS (Role selection)
+         ============================== -->
+    <div id="role-container" aria-label="Role selection canvas">
+      <div id="pdfStatus">Loading PDF...</div>
+
+      <div id="role-stage">
+        <!-- Hotspots match original Page 1 box geometry (960x540) -->
+        <button class="role-hotspot" id="hotspot-officer"
+                style="left:12px; top:391px; width:128px; height:112px;"
+                aria-label="Officer" title="Officer"></button>
+
+        <button class="role-hotspot" id="hotspot-professor"
+                style="left:151px; top:391px; width:128px; height:112px;"
+                aria-label="Professor" title="Professor"></button>
+
+        <button class="role-hotspot" id="hotspot-hacker"
+                style="left:290px; top:391px; width:128px; height:112px;"
+                aria-label="Hacker" title="Hacker"></button>
+
+        <!-- Video (opens new tab) -->
+        <button class="role-hotspot" id="hotspot-video"
+                style="left:134px; top:505px; width:177px; height:32px;"
+                aria-label="What is the role for?" title="What is the role for?"></button>
+      </div>
+
+      <div id="pdfViewer"></div>
+    </div>
+
+    <!-- ==============================
+         TRANSLATION WIDGET
+         ============================== -->
+    <div id="side-widget">
+      <p class="title">Need translation?</p>
+      <button id="select-text">Select Text</button>
+      <p>
+        <a href="https://translate.google.com/?sl=en&tl=es&op=images" target="_blank">
+          Click me and paste from clipboard
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    /* -----------------------------
+       Paging logic (same as original)
+       ----------------------------- */
+    let currentPage = 1, totalPages = 21, maxPageVisited = 1;
+
+    const expectedAnswers = {
+      "answer1": "opposite",
+      "answer2": "ed",
+      "answer3": "adjacent",
+      "answer4": "complementary",
+      "answer5": "54",
+      "answer6": "supplementary",
+      "answer7": "180",
+      "answer8": "27"
+    };
+
+    function checkAndReveal(a, e, p) {
+      const i = document.getElementById(a);
+      if (i.value.trim().toLowerCase() === e) {
+        document.getElementById(p).style.display = "block";
+        i.style.display = "none";
+        return true;
+      }
+      return false;
+    }
+
+    function setupPage3Listeners() {
+      for (let [a, e] of Object.entries(expectedAnswers)) {
+        let num = a.replace("answer", "");
+        let p = "pic" + num;
+        document.getElementById(a).addEventListener("input", function() {
+          checkAndReveal(a, e, p);
+        });
+      }
+    }
+
+    function updateProgress() {
+      const p = (maxPageVisited / totalPages) * 100;
+      document.getElementById("progress").style.width = p + "%";
+      document.getElementById("progressText").innerText = p.toFixed(0) + "% completed";
+    }
+
+    function showPage(p) {
+      for (let i = 1; i <= totalPages; i++) {
+        document.getElementById("page" + i).classList.remove("active");
+      }
+      document.getElementById("page" + p).classList.add("active");
+
+      if (p === 1) {
+        document.getElementById("prev-btn").style.display = "none";
+        document.getElementById("next-btn").style.display = "inline-block";
+      } else if (p === totalPages) {
+        document.getElementById("prev-btn").style.display = "inline-block";
+        document.getElementById("next-btn").style.display = "none";
+      } else {
+        document.getElementById("prev-btn").style.display = "inline-block";
+        document.getElementById("next-btn").style.display = "inline-block";
+      }
+      updateProgress();
+    }
+
+    function nextPage() {
+      if (currentPage === 6) {
+        for (let i = 1; i <= 8; i++) {
+          if (document.getElementById("pic" + i).style.display !== "block") {
+            alert("❌Stop. You need the visitor's pass to move on!(Go back to the page with Master Li and input your answers for the pass)");
+            return;
+          }
+        }
+      }
+
+      if (currentPage >= 8 && currentPage <= 18) {
+        let id = (currentPage <= 13 ? ("p" + currentPage + "box5") : ("p" + currentPage + "box4"));
+        let inp = document.getElementById(id);
+        let exp = { 8:"20", 9:"5", 10:"29", 11:"26", 12:"8", 13:"19", 14:"18", 15:"54", 16:"20", 17:"7", 18:"45" };
+        if (!inp || inp.value.trim() !== exp[currentPage]) {
+          alert("🚫 Incorrect house number.");
+          return;
+        }
+      }
+
+      if (currentPage < totalPages) {
+        currentPage++;
+        if (currentPage > maxPageVisited) maxPageVisited = currentPage;
+        showPage(currentPage);
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        showPage(currentPage);
+      }
+    }
+
+    function unlockPage20() {
+      const i = document.getElementById("p20box");
+      const v = i.value.trim().toLowerCase();
+
+      if (v === "41.5li") {
+        i.style.display = "none";
+        window.open("https://daryeaye.github.io/geotopia/bamu.pdf", "_blank");
+        currentPage++;
+        if (currentPage > maxPageVisited) maxPageVisited = currentPage;
+        showPage(currentPage);
+      } else if (v === "41.5") {
+        alert("✅Great! Now ask the Merchant to help.");
+      } else {
+        alert("❗Nothing happened. Master Li is waiting.");
+      }
+    }
+
+    function confirmName() {
+      const n = document.getElementById("username");
+      const name = n.value.trim();
+      if (name !== "") {
+        localStorage.setItem("username", name);
+        n.disabled = true;
+        alert("Name confirmed as: " + name);
+      } else {
+        alert("Please enter a name.");
+      }
+    }
+
+    function setupPersistence() {
+      const n = localStorage.getItem("username");
+      const ni = document.getElementById("username");
+      if (n !== null && n !== "") {
+        ni.value = n;
+        ni.disabled = true;
+      }
+
+      document.querySelectorAll("input[type='text']").forEach(e => {
+        const key = e.id;
+        const stored = localStorage.getItem(key);
+        if (stored !== null) e.value = stored;
+        e.addEventListener("input", () => {
+          localStorage.setItem(key, e.value);
+        });
+      });
+    }
+
+    /* -----------------------------
+       PDF.js in second canvas
+       ----------------------------- */
+    function initPdfJs() {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    }
+
+    async function renderPdfIntoSecondCanvas(pdfUrl) {
+      const roleContainer = document.getElementById("role-container");
+      const viewer = document.getElementById("pdfViewer");
+      const status = document.getElementById("pdfStatus");
+
+      roleContainer.classList.add("pdf-mode");   // hides role-stage
+      viewer.style.display = "block";
+      viewer.innerHTML = "";
+      viewer.scrollTop = 0;
+
+      status.style.display = "block";
+      status.textContent = "Loading PDF...";
+
+      try {
+        const loadingTask = pdfjsLib.getDocument({ url: pdfUrl });
+        const pdf = await loadingTask.promise;
+
+        status.textContent = "Rendering pages...";
+
+        const targetWidth = 920; // fit inside 960 with padding
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+          const page = await pdf.getPage(pageNum);
+
+          const viewport1 = page.getViewport({ scale: 1 });
+          const scale = targetWidth / viewport1.width;
+          const viewport = page.getViewport({ scale });
+
+          const canvas = document.createElement("canvas");
+          canvas.className = "pdfPageCanvas";
+          canvas.width = Math.floor(viewport.width);
+          canvas.height = Math.floor(viewport.height);
+
+          const ctx = canvas.getContext("2d", { alpha: false });
+          viewer.appendChild(canvas);
+
+          await page.render({ canvasContext: ctx, viewport }).promise;
+        }
+
+        status.style.display = "none";
+      } catch (err) {
+        console.error("PDF.js render error:", err);
+        status.textContent = "Failed to load PDF (see Console).";
+      }
+    }
+
+    function initSecondCanvasHotspots() {
+      document.getElementById("hotspot-officer").addEventListener("click", function() {
+        renderPdfIntoSecondCanvas("https://daryeaye.github.io/geotopia/GT1%20Officer+.pdf");
+      });
+
+      document.getElementById("hotspot-professor").addEventListener("click", function() {
+        renderPdfIntoSecondCanvas("https://daryeaye.github.io/geotopia/GT1%20Professor+.pdf");
+      });
+
+      document.getElementById("hotspot-hacker").addEventListener("click", function() {
+        renderPdfIntoSecondCanvas("https://daryeaye.github.io/geotopia/GT1%20Hacker+.pdf");
+      });
+
+      document.getElementById("hotspot-video").addEventListener("click", function() {
+        window.open("https://www.youtube.com/watch?v=Fj98o3aFfk8", "_blank");
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      initPdfJs();
+      showPage(currentPage);
+      setupPersistence();
+      setupPage3Listeners();
+      initSecondCanvasHotspots();
+    });
+  </script>
+
+  <script>
+    /* -----------------------------
+       Translation screenshot tool (same as original)
+       ----------------------------- */
+    document.getElementById("select-text").addEventListener("click", function() {
+      const o = document.createElement("div");
+      o.id = "selection-overlay";
+      document.body.appendChild(o);
+
+      let sX, sY, sB;
+
+      o.addEventListener("mousedown", function(e) {
+        sX = e.clientX;
+        sY = e.clientY;
+
+        sB = document.createElement("div");
+        sB.id = "selection-box";
+        sB.style.left = sX + "px";
+        sB.style.top = sY + "px";
+        sB.style.width = "0px";
+        sB.style.height = "0px";
+        o.appendChild(sB);
+
+        function mH(e) {
+          const cX = e.clientX, cY = e.clientY;
+          const l = Math.min(sX, cX), t = Math.min(sY, cY);
+          const w = Math.abs(cX - sX), h = Math.abs(cY - sY);
+          sB.style.left = l + "px";
+          sB.style.top = t + "px";
+          sB.style.width = w + "px";
+          sB.style.height = h + "px";
+        }
+
+        function uH() {
+          o.removeEventListener("mousemove", mH);
+          o.removeEventListener("mouseup", uH);
+
+          const r = sB.getBoundingClientRect();
+          document.body.removeChild(o);
+
+          const T = document.getElementById("container");
+          const TR = T.getBoundingClientRect();
+
+          html2canvas(T, { useCORS: true, allowTaint: false }).then(canvas => {
+            const sf = canvas.width / TR.width;
+            const sx = (r.left - TR.left) * sf;
+            const sy = (r.top - TR.top) * sf;
+            const sw = r.width * sf;
+            const sh = r.height * sf;
+
+            const cc = document.createElement("canvas");
+            cc.width = sw;
+            cc.height = sh;
+
+            const ctx = cc.getContext("2d");
+            ctx.drawImage(canvas, sx, sy, sw, sh, 0, 0, sw, sh);
+
+            cc.toBlob(blob => {
+              if (blob) {
+                const itm = new ClipboardItem({ "image/png": blob });
+                navigator.clipboard.write([itm]).then(() => {
+                  alert("Screenshot copied to clipboard.");
+                }).catch(err => {
+                  console.error("Failed to copy screenshot to clipboard", err);
+                  alert("Failed to copy screenshot to clipboard.");
+                });
+              }
+            });
+          });
+        }
+
+        o.addEventListener("mousemove", mH);
+        o.addEventListener("mouseup", uH);
+      });
+    });
+  </script>
+
+  <!-- ©XDY. All rights reserved. This code is the intellectual property of XDY. Unauthorized copying, reproduction, or redistribution is strictly prohibited. For educational use only. Contact the author for permissions. -->
+</body>
+</html>
