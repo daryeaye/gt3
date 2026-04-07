@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,10 +6,9 @@
   <title>Lost Treasure Pt3 Master Li</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Love+Ya+Like+A+Sister&display=swap" rel="stylesheet" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-  <!-- PDF.js (Google Sites-safe PDF rendering) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
   <style>
@@ -27,6 +27,7 @@
       align-items: flex-start;
       padding: 10px 0 40px;
       box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
 
     #app-container {
@@ -36,24 +37,212 @@
       width: 100%;
     }
 
-    /* Sticky header so progress bar is always visible */
+    #tutorialOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    #tutorialBox {
+      position: relative;
+      width: min(860px, 88vw);
+      height: min(500px, 78vh);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #tutorialImage {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    }
+    #tutorialNext {
+      position: absolute;
+      right: -30px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 56px;
+      height: 50%;
+      min-height: 140px;
+      border: none;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.88);
+      color: #111;
+      font-size: 42px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+      line-height: 1;
+      font-family: "Love Ya Like A Sister", cursive;
+    }
+    #tutorialNext:hover { background: rgba(255,255,255,0.96); }
+
+    #authOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      z-index: 15000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    #authOverlayBox {
+      width: min(430px, 88vw);
+      background: #fffdf7;
+      border: 3px solid #000;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      padding: 24px 20px 18px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    #authOverlayTitle {
+      font-family: "Love Ya Like A Sister", cursive;
+      font-size: 34px;
+      line-height: 1.05;
+      margin-bottom: 10px;
+      color: #111;
+    }
+    #authOverlayText {
+      font-family: "Comic Sans MS", sans-serif;
+      font-size: 16px;
+      line-height: 1.35;
+      color: #222;
+      margin-bottom: 14px;
+    }
+    #auth-username, #auth-password {
+      width: 100%;
+      font-size: 18px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      border: 2px solid #000;
+      border-radius: 8px;
+      font-family: "Comic Sans MS", sans-serif;
+      background: #fff;
+    }
+    #authOverlayButtons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    #authRegisterBtn, #authLoginBtn {
+      font-size: 22px;
+      padding: 6px 12px;
+      cursor: pointer;
+      background-color: lightblue;
+      border: none;
+      line-height: 1;
+      border-radius: 6px;
+      font-family: "Love Ya Like A Sister", cursive;
+    }
+    #authModalStatus {
+      font-family: "Comic Sans MS", sans-serif;
+      font-size: 14px;
+      line-height: 1.3;
+      min-height: 18px;
+      margin-top: 12px;
+      color: #222;
+    }
+
     #header {
       width: 960px;
       background: #eee;
       padding: 10px;
       margin-bottom: 10px;
-
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       position: sticky;
       top: 0;
       z-index: 2000;
       box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      box-sizing: border-box;
     }
 
-    #header-top {
+    #topAuthRow, #progressRow {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
+      gap: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #topAuthLeft {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    #logoutBtn, #introBtn, #authRegisterBtn, #authLoginBtn, #openFileBtn, #prev-btn, #next-btn,
+    #unlockBtn, #collapse-widget, #side-widget button:not(#collapse-widget), .popupBtn {
+      font-family: "Love Ya Like A Sister", cursive;
+    }
+
+    #logoutBtn, #introBtn {
+      font-size: 22px;
+      padding: 6px 12px;
+      cursor: pointer;
+      background-color: lightblue;
+      border: none;
+      line-height: 1;
+      border-radius: 6px;
+    }
+
+    #authStatus {
+      font-size: 15px;
+      font-family: "Comic Sans MS", sans-serif;
+      color: #222;
+      min-width: 170px;
+      text-align: right;
+    }
+
+    #progressBar {
+      flex: 1;
+      background: #ccc;
+      height: 20px;
+      margin: 0 10px 0 0;
+      position: relative;
+    }
+
+    #progress {
+      background: green;
+      height: 100%;
+      width: 0%;
+    }
+
+    #progressText {
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    #saveStatus {
+      font-size: 13px;
+      color: #444;
+      min-width: 120px;
+      text-align: right;
+    }
+
+    #main-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    #main-wrapper {
+      position: relative;
+      width: 960px;
     }
 
     #container {
@@ -65,9 +254,6 @@
       overflow: hidden;
     }
 
-    #translation-widget span { vertical-align: middle; }
-    #translation-widget a { text-decoration: none; }
-
     .page {
       position: absolute;
       top: 0;
@@ -75,6 +261,10 @@
       width: 960px;
       height: 540px;
       display: none;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+      overflow: hidden;
     }
     .page.active { display: block; }
 
@@ -102,27 +292,13 @@
       box-sizing: border-box;
     }
 
-    #progressBar {
-      width: 100%;
-      background: #ccc;
-      height: 20px;
-      margin-top: 10px;
-      position: relative;
-    }
-
-    #progress {
-      width: 0%;
-      background: green;
-      height: 100%;
-    }
-
     button {
-      font-family: "Caveat", cursive;
+      font-family: "Comic Sans MS", sans-serif;
       font-size: 20px;
       background-color: lightblue;
       border: none;
       padding: 10px 20px;
-      margin: 0 5px;
+      margin: 0;
       cursor: pointer;
     }
 
@@ -134,6 +310,7 @@
       font-size: 18px;
       padding: 5px 10px;
       cursor: pointer;
+      z-index: 40;
     }
 
     .clickable-box {
@@ -147,36 +324,17 @@
       cursor: pointer;
     }
 
-    /* Main area wrapper so nav buttons don't shift the canvas */
-    #main-area {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-
-    #main-wrapper {
-      position: relative;
-      width: 960px;
-    }
-
-    /* Prev/Next: left side, vertically centered, close to canvas */
     #nav-buttons {
       position: absolute;
-      font-size: 30px;      /* bigger text */
-      padding: 24px 36px;   /* bigger button */
       top: 50%;
       left: -150px;
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin: 0;
+      z-index: 3000;
     }
 
-    /* ==============================
-       SECOND CANVAS (Role selection)
-       Stage is 960x540 (same as main)
-       ============================== */
     #role-container {
       position: relative;
       width: 960px;
@@ -200,7 +358,7 @@
 
     .role-hotspot {
       position: absolute;
-      background: rgba(255,0,0,0); /* invisible */
+      background: rgba(255,0,0,0);
       border: none;
       padding: 0;
       margin: 0;
@@ -238,14 +396,26 @@
       display: none;
     }
 
-    /* When PDF is active: hide role-stage (background + hotspots) */
     #role-container.pdf-mode #role-stage {
       display: none;
     }
 
-    /* ==============================
-       SIDE WIDGET (translation)
-       ============================== */
+    #openFileWrap {
+      width: 960px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    #openFileBtn {
+      font-size: 16px;
+      padding: 8px 16px;
+      background: lightblue;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      line-height: 1;
+    }
+
     #side-widget {
       position: fixed;
       top: 20px;
@@ -258,6 +428,42 @@
       box-sizing: border-box;
       font-family: 'Caveat', cursive;
       z-index: 999;
+      transition: all 0.25s ease;
+    }
+
+    #side-widget.collapsed {
+      width: 120px;
+      height: 24px;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: rgba(249,249,249,0.95);
+      border: 1px solid #ccc;
+      font-family: "Comic Sans MS", sans-serif;
+      font-size: 8px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    #side-widget.collapsed * { display: none !important; }
+    #side-widget.collapsed::after { content: "Translation"; }
+
+    #collapse-widget {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      padding: 0;
+      line-height: 1;
+      font-size: 14px;
+      background: lightblue;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: "Comic Sans MS", sans-serif;
     }
 
     #side-widget p.title {
@@ -266,7 +472,7 @@
       margin: 0 0 10px;
     }
 
-    #side-widget button, #side-widget a {
+    #side-widget button:not(#collapse-widget), #side-widget a {
       display: block;
       margin: 0 auto;
       font-size: 20px;
@@ -277,7 +483,7 @@
       padding: 10px;
       text-decoration: none;
       color: inherit;
-      font-family: 'Caveat', cursive;
+      font-family: "Comic Sans MS", sans-serif;
     }
 
     #selection-overlay {
@@ -295,34 +501,113 @@
       border: 2px dashed red;
       background: rgba(0,0,0,0.1);
     }
+
+    #customPopupOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 20000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    #customPopupBox {
+      width: min(430px, 88vw);
+      background: #fffdf7;
+      border: 3px solid #000;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      padding: 24px 20px 18px;
+      text-align: center;
+      font-family: "Comic Sans MS", sans-serif;
+    }
+    #customPopupMessage {
+      font-size: 24px;
+      line-height: 1.35;
+      color: #111;
+      margin-bottom: 18px;
+    }
+    #customPopupButtons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .popupBtn {
+      font-size: 24px;
+      background: lightblue;
+      border: 2px solid #000;
+      border-radius: 10px;
+      padding: 8px 20px;
+      cursor: pointer;
+    }
+
+    #pageTransitionOverlay {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      z-index: 10050;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
   </style>
 </head>
 
 <body>
+  <div id="authOverlay">
+    <div id="authOverlayBox">
+      <div id="authOverlayTitle">Sign in to start</div>
+      <div id="authOverlayText">Please log in or register before entering the quest. Username cannot contain spaces.</div>
+      <input type="text" id="auth-username" placeholder="Username" autocomplete="username" />
+      <input type="password" id="auth-password" placeholder="Password" autocomplete="current-password" />
+      <div id="authOverlayButtons">
+        <button id="authRegisterBtn" type="button">Register</button>
+        <button id="authLoginBtn" type="button">Log In</button>
+      </div>
+      <div id="authModalStatus"></div>
+    </div>
+  </div>
+
+  <div id="customPopupOverlay">
+    <div id="customPopupBox">
+      <div id="customPopupMessage"></div>
+      <div id="customPopupButtons"></div>
+    </div>
+  </div>
+
+  <div id="tutorialOverlay">
+    <div id="tutorialBox">
+      <img id="tutorialImage" src="" alt="Tutorial">
+      <button id="tutorialNext" type="button" aria-label="Next tutorial slide">›</button>
+    </div>
+  </div>
+
   <div id="app-container">
     <div id="header">
-      <div id="header-top">
-        <div>
-          <input type="text" id="username" placeholder="Enter your name" style="font-size:16px; padding:5px;" />
-          <button id="confirmBtn" onclick="confirmName()">Confirm</button>
-          <button id="introBtn" onclick="openIntro()">Intro</button>
+      <div id="topAuthRow">
+        <div id="topAuthLeft">
+          <button id="logoutBtn" type="button" style="display:none;">Log Out</button>
+          <button id="introBtn" type="button">Intro</button>
         </div>
+        <div id="authStatus">Not logged in</div>
       </div>
-      <div id="progressBar"><div id="progress"></div></div>
-      <span id="progressText">0% completed</span>
+      <div id="progressRow">
+        <div id="progressBar"><div id="progress"></div></div>
+        <span id="progressText">0% completed</span>
+        <span id="saveStatus">Not saved yet</span>
+      </div>
     </div>
 
     <div id="main-area">
       <div id="main-wrapper">
         <div id="nav-buttons">
-          <button id="prev-btn" onclick="prevPage()">Previous</button>
-          <button id="next-btn" onclick="nextPage()">Next</button>
+          <button id="prev-btn" type="button">Previous</button>
+          <button id="next-btn" type="button">Next</button>
         </div>
 
         <div id="container">
-          <!-- Page 1: REMOVED the 3 role PDF boxes and REMOVED the "What is the role for?" button -->
           <div id="page1" class="page active" style="background:url('https://daryeaye.github.io/gt3/3-01.jpg') no-repeat center center; background-size:contain;"></div>
-
           <div id="page2" class="page" style="background:url('https://daryeaye.github.io/gt3/3-02.jpg') no-repeat center center; background-size:contain;"></div>
 
           <div id="page3" class="page" style="background:url('https://daryeaye.github.io/gt3/3-03.jpg') no-repeat center center; background-size:contain;">
@@ -347,19 +632,19 @@
 
           <div id="page4" class="page" style="background:url('https://daryeaye.github.io/gt3/3-04.jpg') no-repeat center center; background-size:contain;">
             <div class="box" style="left:117px; top:106px; width:112px; height:44px;"><input type="text" id="p4box1" class="grayTypeable" /></div>
-            <div class="box" style="left:73px; top:289px; width:56px; height:44px;"><input type="text" id="p4box2" class="grayTypeable" /></div>
+            <div class="box" style="left:73px; top:289px; width:56px; height:44px;"><input type="text" id="p4box2" class="grayTypeable" style="text-align:right;" /></div>
             <div class="box" style="left:302px; top:449px; width:49px; height:44px;"><input type="text" id="p4box3" class="grayTypeable" /></div>
           </div>
 
           <div id="page5" class="page" style="background:url('https://daryeaye.github.io/gt3/3-05.jpg') no-repeat center center; background-size:contain;">
             <div class="box" style="left:21px; top:105px; width:169px; height:44px;"><input type="text" id="p5box1" class="grayTypeable" /></div>
             <div class="box" style="left:21px; top:271px; width:169px; height:44px;"><input type="text" id="p5box2" class="grayTypeable" /></div>
-            <div class="box" style="left:385px; top:439px; width:67px; height:44px;"><input type="text" id="p5box3" class="grayTypeable" /></div>
+            <div class="box" style="left:385px; top:439px; width:67px; height:44px;"><input type="text" id="p5box3" class="grayTypeable" style="text-align:right;" /></div>
           </div>
 
           <div id="page6" class="page" style="background:url('https://daryeaye.github.io/gt3/3-06.jpg') no-repeat center center; background-size:contain;">
             <div class="box" style="left:427px; top:88px; width:169px; height:44px;"><input type="text" id="p6box1" class="grayTypeable" /></div>
-            <div class="box" style="left:406px; top:394px; width:62px; height:44px;"><input type="text" id="p6box2" class="grayTypeable" /></div>
+            <div class="box" style="left:406px; top:394px; width:62px; height:44px;"><input type="text" id="p6box2" class="grayTypeable" style="text-align:right;" /></div>
           </div>
 
           <div id="page7" class="page" style="background:url('https://daryeaye.github.io/gt3/3-07.jpg') no-repeat center center; background-size:contain;"></div>
@@ -451,94 +736,500 @@
 
           <div id="page20" class="page" style="background:url('https://daryeaye.github.io/gt3/3-20.jpg') no-repeat center center; background-size:contain;">
             <div class="box" style="left:391px; top:373px; width:178px; height:44px;"><input type="text" id="p20box" class="grayTypeable" placeholder="Type here" /></div>
-            <button id="unlockBtn" onclick="unlockPage20()">Unlock</button>
+            <button id="unlockBtn" type="button">Unlock</button>
           </div>
 
           <div id="page21" class="page" style="background:url('https://daryeaye.github.io/gt3/3-Final.jpg') no-repeat center center; background-size:contain;">
             <a href="https://daryeaye.github.io/gt3/boshi.html" target="_blank"><div class="clickable-box"></div></a>
           </div>
+
+          <div id="pageTransitionOverlay"></div>
         </div>
       </div>
     </div>
 
-    <!-- ==============================
-         SECOND CANVAS (Role selection)
-         ============================== -->
     <div id="role-container" aria-label="Role selection canvas">
       <div id="pdfStatus">Loading PDF...</div>
-
       <div id="role-stage">
-        <!-- Hotspots match original Page 1 box geometry (960x540) -->
-        <button class="role-hotspot" id="hotspot-officer"
-                style="left:117px; top:73px; width:197px; height:166px;"
-                aria-label="Officer" title="Officer"></button>
-
-        <button class="role-hotspot" id="hotspot-professor"
-                style="left:382px; top:73px; width:197px; height:166px;"
-                aria-label="Professor" title="Professor"></button>
-
-        <button class="role-hotspot" id="hotspot-hacker"
-                style="left:647px; top:73px; width:197px; height:166px;"
-                aria-label="Hacker" title="Hacker"></button>
-
-        <!-- Video (opens new tab) -->
-        <button class="role-hotspot" id="hotspot-video"
-                style="left:301px; top:460px; width:358px; height:31px;"
-                aria-label="What is the role for?" title="What is the role for?"></button>
+        <button class="role-hotspot" id="hotspot-officer" style="left:117px; top:73px; width:197px; height:166px;" aria-label="Officer" title="Officer"></button>
+        <button class="role-hotspot" id="hotspot-professor" style="left:382px; top:73px; width:197px; height:166px;" aria-label="Professor" title="Professor"></button>
+        <button class="role-hotspot" id="hotspot-hacker" style="left:647px; top:73px; width:197px; height:166px;" aria-label="Hacker" title="Hacker"></button>
+        <button class="role-hotspot" id="hotspot-video" style="left:301px; top:460px; width:358px; height:31px;" aria-label="What is the role for?" title="What is the role for?"></button>
       </div>
-
       <div id="pdfViewer"></div>
     </div>
 
-    <!-- ==============================
-         TRANSLATION WIDGET
-         ============================== -->
-    <div id="side-widget">
-      <p class="title">Need translation?</p>
-      <button id="select-text">Select Text</button>
-      <p>
-        <a href="https://translate.google.com/?sl=en&tl=es&op=images" target="_blank">
-          Click me and paste from clipboard
-        </a>
-      </p>
+    <div id="openFileWrap">
+      <button id="openFileBtn" type="button">Open the file on a new tab</button>
     </div>
   </div>
 
-  <script>
-    /* -----------------------------
-       Paging logic (same as original)
-       ----------------------------- */
-    let currentPage = 1, totalPages = 21, maxPageVisited = 1;
+  <div id="side-widget" class="collapsed" aria-label="Translation widget">
+    <button id="collapse-widget" type="button" aria-label="Collapse translation widget">–</button>
+    <p class="title">Need translation?</p>
+    <button id="select-text" type="button">Select Text</button>
+    <p>
+      <a href="https://translate.google.com/?sl=en&tl=es&op=images" target="_blank">Click me and paste from clipboard</a>
+    </p>
+  </div>
 
-    const expectedAnswers = {
-      "answer1": "opposite",
-      "answer2": "ed",
-      "answer3": "adjacent",
-      "answer4": "complementary",
-      "answer5": "54",
-      "answer6": "supplementary",
-      "answer7": "180",
-      "answer8": "27"
+  <script>
+    const TUTORIAL_IMAGES = [
+      "https://daryeaye.github.io/geotopia/t2.jpg",
+      "https://daryeaye.github.io/geotopia/t3.jpg"
+    ];
+
+    const APP_ID = "losttreasure-pt3";
+    const WORKER_BASE_URL = "https://geotopia-powerfall-auth-api.daryeaye.workers.dev";
+    const SESSION_STORAGE = {
+      token: "lt3_auth_token",
+      username: "lt3_auth_username"
+    };
+    const TUTORIAL_STORAGE_KEY = "lt3_tutorial_seen";
+
+    const INTRO_URL = "https://www.youtube.com/watch?v=PFy9wgmUADc";
+    const ROLE_PDF_URLS = {
+      officer: "https://daryeaye.github.io/geotopia/GT1%20Officer+.pdf",
+      professor: "https://daryeaye.github.io/geotopia/GT1%20Professor+.pdf",
+      hacker: "https://daryeaye.github.io/geotopia/GT1%20Hacker+.pdf"
     };
 
-    function checkAndReveal(a, e, p) {
-      const i = document.getElementById(a);
-      if (i.value.trim().toLowerCase() === e) {
-        document.getElementById(p).style.display = "block";
-        i.style.display = "none";
-        return true;
-      }
-      return false;
+    const expectedAnswers = {
+      answer1: "opposite",
+      answer2: "ed",
+      answer3: "adjacent",
+      answer4: "complementary",
+      answer5: "54",
+      answer6: "supplementary",
+      answer7: "180",
+      answer8: "27"
+    };
+
+    const finalAnswers = {
+      8:"20", 9:"5", 10:"29", 11:"26", 12:"8",
+      13:"19", 14:"18", 15:"54", 16:"20", 17:"7", 18:"45"
+    };
+
+    let currentPage = 1;
+    const totalPages = 21;
+    let maxPageVisited = 1;
+    let currentPdfUrl = "";
+    let currentPdfRole = "";
+    let pdfScrollTop = 0;
+
+    let authToken = "";
+    let loggedInUsername = "";
+    let autoSaveTimer = null;
+    let saveInFlight = false;
+    let saveQueued = false;
+    let isApplyingRemoteData = false;
+    let tutorialIndex = 0;
+
+    function openIntro() {
+      window.open(INTRO_URL, "_blank");
     }
 
-    function setupPage3Listeners() {
-      for (let [a, e] of Object.entries(expectedAnswers)) {
-        let num = a.replace("answer", "");
-        let p = "pic" + num;
-        document.getElementById(a).addEventListener("input", function() {
-          checkAndReveal(a, e, p);
-        });
+    function setSaveStatus(text) {
+      document.getElementById("saveStatus").textContent = text;
+    }
+
+    function setAuthStatus(message, isError = false) {
+      const authStatus = document.getElementById("authStatus");
+      authStatus.textContent = message;
+      authStatus.style.color = isError ? "#b00020" : "#222";
+    }
+
+    function wait(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function closeCustomPopup() {
+      document.getElementById("customPopupOverlay").style.display = "none";
+      document.getElementById("customPopupMessage").textContent = "";
+      document.getElementById("customPopupButtons").innerHTML = "";
+    }
+
+    function showCustomPopup(message, buttons = [{ text: "OK", action: closeCustomPopup }]) {
+      const overlay = document.getElementById("customPopupOverlay");
+      const msg = document.getElementById("customPopupMessage");
+      const btnWrap = document.getElementById("customPopupButtons");
+
+      msg.textContent = message;
+      btnWrap.innerHTML = "";
+
+      buttons.forEach(btn => {
+        const b = document.createElement("button");
+        b.className = "popupBtn";
+        b.textContent = btn.text;
+        b.onclick = () => {
+          closeCustomPopup();
+          if (btn.action) btn.action();
+        };
+        btnWrap.appendChild(b);
+      });
+
+      overlay.style.display = "flex";
+    }
+
+    function showMessagePopup(message) {
+      showCustomPopup(message, [{ text: "OK", action: closeCustomPopup }]);
+    }
+
+    function setAuthModalStatus(message, isError = false) {
+      const status = document.getElementById("authModalStatus");
+      if (!status) return;
+      status.textContent = message || "";
+      status.style.color = isError ? "#b00020" : "#222";
+    }
+
+    function openAuthOverlay(prefillUsername = "") {
+      const overlay = document.getElementById("authOverlay");
+      const usernameInput = document.getElementById("auth-username");
+      const passwordInput = document.getElementById("auth-password");
+
+      if (prefillUsername) {
+        usernameInput.value = prefillUsername;
+      } else if (loggedInUsername) {
+        usernameInput.value = loggedInUsername;
       }
+
+      passwordInput.value = "";
+      setAuthModalStatus("Please sign in to continue.", false);
+      overlay.style.display = "flex";
+      usernameInput.focus();
+    }
+
+    function closeAuthOverlay() {
+      const overlay = document.getElementById("authOverlay");
+      overlay.style.display = "none";
+      setAuthModalStatus("", false);
+    }
+
+    function maybeRequireAuthOverlay() {
+      if (!authToken) {
+        openAuthOverlay(loggedInUsername || "");
+      }
+    }
+
+    function updateAuthUI() {
+      const loggedIn = !!authToken;
+      document.getElementById("logoutBtn").style.display = loggedIn ? "inline-block" : "none";
+      setAuthStatus(loggedIn ? ("Logged in as " + (loggedInUsername || "student")) : "Not logged in", false);
+      if (loggedIn) {
+        closeAuthOverlay();
+      }
+    }
+
+    function saveSessionLocally(token, username) {
+      authToken = token || "";
+      loggedInUsername = username || "";
+      localStorage.setItem(SESSION_STORAGE.token, authToken);
+      localStorage.setItem(SESSION_STORAGE.username, loggedInUsername);
+      updateAuthUI();
+    }
+
+    function clearSessionLocally() {
+      authToken = "";
+      loggedInUsername = "";
+      localStorage.removeItem(SESSION_STORAGE.token);
+      localStorage.removeItem(SESSION_STORAGE.username);
+      updateAuthUI();
+    }
+
+    function restoreSessionLocally() {
+      authToken = localStorage.getItem(SESSION_STORAGE.token) || "";
+      loggedInUsername = localStorage.getItem(SESSION_STORAGE.username) || "";
+      updateAuthUI();
+    }
+
+    async function apiFetch(path, options = {}) {
+      const headers = {
+        "Content-Type": "application/json",
+        ...(options.headers || {})
+      };
+
+      if (authToken) {
+        headers.Authorization = "Bearer " + authToken;
+      }
+
+      const response = await fetch(WORKER_BASE_URL + path, {
+        method: options.method || "GET",
+        headers,
+        body: options.body
+      });
+
+      const json = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(json.error || "Request failed");
+      }
+      return json;
+    }
+
+    function getPageInputElements() {
+      return Array.from(document.querySelectorAll('#container input[type="text"]'));
+    }
+
+    function getInputSnapshot() {
+      const snapshot = {};
+      getPageInputElements().forEach(el => {
+        if (el.id) snapshot[el.id] = el.value || "";
+      });
+      return snapshot;
+    }
+
+    function applyInputSnapshot(snapshot) {
+      getPageInputElements().forEach(el => {
+        if (!el.id) return;
+        el.value = snapshot && Object.prototype.hasOwnProperty.call(snapshot, el.id)
+          ? (snapshot[el.id] ?? "")
+          : "";
+      });
+      refreshPage3State();
+    }
+
+    function refreshPage3State() {
+      Object.entries(expectedAnswers).forEach(([answerId, expected]) => {
+        const input = document.getElementById(answerId);
+        const picId = "pic" + answerId.replace("answer", "");
+        const pic = document.getElementById(picId);
+        if (!input || !pic) return;
+
+        if ((input.value || "").trim().toLowerCase() === expected) {
+          pic.style.display = "block";
+          input.style.display = "none";
+        } else {
+          pic.style.display = "none";
+          input.style.display = "block";
+        }
+      });
+    }
+
+    function buildProgressPayload() {
+      const viewer = document.getElementById("pdfViewer");
+      return {
+        playerName: loggedInUsername,
+        currentPage,
+        maxPageVisited,
+        currentPdfUrl,
+        currentPdfRole,
+        pdfScrollTop: viewer ? viewer.scrollTop : 0,
+        inputValues: getInputSnapshot()
+      };
+    }
+
+    async function applyProgressPayload(payload) {
+      isApplyingRemoteData = true;
+
+      const safe = payload && typeof payload === "object" ? payload : {};
+      applyInputSnapshot(safe.inputValues || {});
+
+      currentPage = Number.isInteger(Number(safe.currentPage)) ? Number(safe.currentPage) : 1;
+      if (currentPage < 1) currentPage = 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      maxPageVisited = Number.isInteger(Number(safe.maxPageVisited)) ? Number(safe.maxPageVisited) : currentPage;
+      if (maxPageVisited < 1) maxPageVisited = 1;
+      if (maxPageVisited > totalPages) maxPageVisited = totalPages;
+
+      currentPdfUrl = String(safe.currentPdfUrl || "");
+      currentPdfRole = String(safe.currentPdfRole || "");
+      pdfScrollTop = Number.isFinite(Number(safe.pdfScrollTop)) ? Number(safe.pdfScrollTop) : 0;
+
+      showPage(currentPage);
+
+      if (currentPdfUrl) {
+        try {
+          await renderPdfIntoSecondCanvas(currentPdfUrl, currentPdfRole, pdfScrollTop);
+        } catch (err) {
+          console.error(err);
+        }
+      } else {
+        exitPdfMode();
+      }
+
+      isApplyingRemoteData = false;
+    }
+
+    async function registerUser() {
+      const usernameInput = document.getElementById("auth-username");
+      const passwordInput = document.getElementById("auth-password");
+
+      const rawUsername = usernameInput.value || "";
+      const username = rawUsername.trim().toLowerCase();
+      const password = passwordInput.value;
+
+      if (!username || !password) {
+        setAuthStatus("Enter username and password", true);
+        setAuthModalStatus("Enter username and password.", true);
+        return;
+      }
+
+      if (/\s/.test(rawUsername)) {
+        setAuthStatus("Username cannot contain spaces", true);
+        setAuthModalStatus("Username cannot contain spaces.", true);
+        return;
+      }
+
+      setAuthStatus("Registering...");
+      setAuthModalStatus("Registering...", false);
+
+      try {
+        const result = await apiFetch("/api/register", {
+          method: "POST",
+          body: JSON.stringify({ username, password, appId: APP_ID })
+        });
+
+        saveSessionLocally(result.token, result.username || username);
+        passwordInput.value = "";
+        await loadProgressFromServer();
+        setAuthModalStatus("Account created.", false);
+        closeAuthOverlay();
+      } catch (err) {
+        setAuthStatus(err.message || "Register failed", true);
+        setAuthModalStatus(err.message || "Register failed", true);
+      }
+    }
+
+    async function loginUser() {
+      const usernameInput = document.getElementById("auth-username");
+      const passwordInput = document.getElementById("auth-password");
+
+      const rawUsername = usernameInput.value || "";
+      const username = rawUsername.trim().toLowerCase();
+      const password = passwordInput.value;
+
+      if (!username || !password) {
+        setAuthStatus("Enter username and password", true);
+        setAuthModalStatus("Enter username and password.", true);
+        return;
+      }
+
+      if (/\s/.test(rawUsername)) {
+        setAuthStatus("Username cannot contain spaces", true);
+        setAuthModalStatus("Username cannot contain spaces.", true);
+        return;
+      }
+
+      setAuthStatus("Logging in...");
+      setAuthModalStatus("Logging in...", false);
+
+      try {
+        const result = await apiFetch("/api/login", {
+          method: "POST",
+          body: JSON.stringify({ username, password, appId: APP_ID })
+        });
+
+        saveSessionLocally(result.token, result.username || username);
+        passwordInput.value = "";
+        await loadProgressFromServer();
+        setAuthModalStatus("Logged in.", false);
+        closeAuthOverlay();
+      } catch (err) {
+        setAuthStatus(err.message || "Login failed", true);
+        setAuthModalStatus(err.message || "Login failed", true);
+      }
+    }
+
+    async function loadProgressFromServer() {
+      if (!authToken) return;
+
+      try {
+        const result = await apiFetch("/api/load?appId=" + encodeURIComponent(APP_ID), { method: "GET" });
+
+        if (result.username) {
+          loggedInUsername = result.username;
+          localStorage.setItem(SESSION_STORAGE.username, loggedInUsername);
+        }
+
+        updateAuthUI();
+        await applyProgressPayload(result.saveData || {});
+        setSaveStatus("Loaded");
+      } catch (err) {
+        setAuthStatus(err.message || "Could not load progress", true);
+      }
+    }
+
+    async function saveProgressToServer() {
+      if (!authToken || saveInFlight || isApplyingRemoteData) return;
+
+      saveInFlight = true;
+      try {
+        setSaveStatus("Saving...");
+        await apiFetch("/api/save", {
+          method: "POST",
+          body: JSON.stringify({
+            appId: APP_ID,
+            saveData: buildProgressPayload()
+          })
+        });
+        setSaveStatus("Saved");
+      } catch (err) {
+        setAuthStatus(err.message || "Save failed", true);
+        setSaveStatus("Save failed");
+      } finally {
+        saveInFlight = false;
+        if (saveQueued) {
+          saveQueued = false;
+          saveProgressToServer();
+        }
+      }
+    }
+
+    function queueCloudSave() {
+      if (isApplyingRemoteData || !authToken) return;
+
+      clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(() => {
+        if (saveInFlight) {
+          saveQueued = true;
+          return;
+        }
+        saveProgressToServer();
+      }, 900);
+    }
+
+    async function flushPendingSaveBeforeLogout() {
+      clearTimeout(autoSaveTimer);
+      autoSaveTimer = null;
+
+      if (!authToken || isApplyingRemoteData) return;
+
+      if (saveInFlight) {
+        saveQueued = true;
+        while (saveInFlight) {
+          await wait(80);
+        }
+      }
+
+      await saveProgressToServer();
+
+      while (saveInFlight) {
+        await wait(80);
+      }
+    }
+
+    async function logoutUser() {
+      try {
+        await flushPendingSaveBeforeLogout();
+      } catch (err) {
+        console.error(err);
+      }
+
+      try {
+        if (authToken) {
+          await apiFetch("/api/logout", {
+            method: "POST",
+            body: "{}"
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+
+      const prefill = loggedInUsername || "";
+      clearSessionLocally();
+      setSaveStatus("Not saved yet");
+      openAuthOverlay(prefill);
     }
 
     function updateProgress() {
@@ -548,123 +1239,116 @@
     }
 
     function showPage(p) {
+      currentPage = p;
+      if (currentPage > maxPageVisited) maxPageVisited = currentPage;
+
       for (let i = 1; i <= totalPages; i++) {
         document.getElementById("page" + i).classList.remove("active");
       }
       document.getElementById("page" + p).classList.add("active");
 
-      if (p === 1) {
-        document.getElementById("prev-btn").style.display = "none";
-        document.getElementById("next-btn").style.display = "inline-block";
-      } else if (p === totalPages) {
-        document.getElementById("prev-btn").style.display = "inline-block";
+      document.getElementById("prev-btn").style.display = p === 1 ? "none" : "inline-block";
+      if (p === totalPages || p === 20) {
         document.getElementById("next-btn").style.display = "none";
       } else {
-        document.getElementById("prev-btn").style.display = "inline-block";
         document.getElementById("next-btn").style.display = "inline-block";
       }
+
       updateProgress();
     }
 
-    function nextPage() {
+    async function runCanvasTransition(action) {
+      const overlay = document.getElementById("pageTransitionOverlay");
+      overlay.style.pointerEvents = "auto";
+      overlay.style.opacity = "1";
+      await wait(280);
+      action();
+      await wait(60);
+      overlay.style.opacity = "0";
+      await wait(280);
+      overlay.style.pointerEvents = "none";
+    }
+
+    async function nextPage() {
       if (currentPage === 6) {
         for (let i = 1; i <= 8; i++) {
           if (document.getElementById("pic" + i).style.display !== "block") {
-            alert("❌Stop. You need the visitor's pass to move on!(Go back to the page with Master Li and input your answers for the pass)");
+            showMessagePopup("Let's bring the answers of the chopstick rules back to Master Li.");
             return;
           }
         }
       }
 
       if (currentPage >= 8 && currentPage <= 18) {
-        let id = (currentPage <= 13 ? ("p" + currentPage + "box5") : ("p" + currentPage + "box4"));
-        let inp = document.getElementById(id);
-        let exp = { 8:"20", 9:"5", 10:"29", 11:"26", 12:"8", 13:"19", 14:"18", 15:"54", 16:"20", 17:"7", 18:"45" };
-        if (!inp || inp.value.trim() !== exp[currentPage]) {
-          alert("🚫 Incorrect house number.");
+        const id = currentPage <= 13 ? ("p" + currentPage + "box5") : ("p" + currentPage + "box4");
+        const inp = document.getElementById(id);
+        if (!inp || inp.value.trim() !== finalAnswers[currentPage]) {
+          showMessagePopup("🚫 Incorrect house number.");
           return;
         }
       }
 
-      if (currentPage < totalPages) {
-        currentPage++;
-        if (currentPage > maxPageVisited) maxPageVisited = currentPage;
-        showPage(currentPage);
+      if (currentPage < totalPages && currentPage !== 20) {
+        await runCanvasTransition(() => {
+          showPage(currentPage + 1);
+        });
+        queueCloudSave();
       }
     }
 
     function prevPage() {
       if (currentPage > 1) {
-        currentPage--;
-        showPage(currentPage);
+        showPage(currentPage - 1);
+        queueCloudSave();
       }
     }
 
-    function unlockPage20() {
+    async function unlockPage20() {
       const i = document.getElementById("p20box");
       const v = i.value.trim().toLowerCase();
 
       if (v === "41.5li") {
-        i.style.display = "none";
         window.open("https://daryeaye.github.io/geotopia/bamu.pdf", "_blank");
-        currentPage++;
-        if (currentPage > maxPageVisited) maxPageVisited = currentPage;
-        showPage(currentPage);
-      } else if (v === "41.5") {
-        alert("✅Great! Now ask the Merchant to help.");
-      } else {
-        alert("❗Nothing happened. Master Li is waiting.");
-      }
-    }
-
-    function confirmName() {
-      const n = document.getElementById("username");
-      const name = n.value.trim();
-      if (name !== "") {
-        localStorage.setItem("username", name);
-        n.disabled = true;
-        alert("Name confirmed as: " + name);
-      } else {
-        alert("Please enter a name.");
-      }
-    }
-
-    function openIntro(){
-    window.open("https://www.youtube.com/watch?v=PFy9wgmUADc", "_blank");
-    }
-
-    function setupPersistence() {
-      const n = localStorage.getItem("username");
-      const ni = document.getElementById("username");
-      if (n !== null && n !== "") {
-        ni.value = n;
-        ni.disabled = true;
-      }
-
-      document.querySelectorAll("input[type='text']").forEach(e => {
-        const key = e.id;
-        const stored = localStorage.getItem(key);
-        if (stored !== null) e.value = stored;
-        e.addEventListener("input", () => {
-          localStorage.setItem(key, e.value);
+        await runCanvasTransition(() => {
+          showPage(21);
         });
-      });
+        queueCloudSave();
+      } else if (v === "41.5") {
+        showMessagePopup("✅Great! Now ask the Merchant to help.");
+      } else {
+        showMessagePopup("❗Nothing happened. Master Li is waiting.");
+      }
     }
 
-    /* -----------------------------
-       PDF.js in second canvas
-       ----------------------------- */
+    function exitPdfMode() {
+      const roleContainer = document.getElementById("role-container");
+      const viewer = document.getElementById("pdfViewer");
+      const status = document.getElementById("pdfStatus");
+      viewer.innerHTML = "";
+      viewer.style.display = "none";
+      viewer.scrollTop = 0;
+      status.style.display = "none";
+      roleContainer.classList.remove("pdf-mode");
+      currentPdfUrl = "";
+      currentPdfRole = "";
+      pdfScrollTop = 0;
+    }
+
     function initPdfJs() {
       pdfjsLib.GlobalWorkerOptions.workerSrc =
         "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
     }
 
-    async function renderPdfIntoSecondCanvas(pdfUrl) {
+    async function renderPdfIntoSecondCanvas(pdfUrl, roleName = "", targetScrollTop = 0) {
+      currentPdfUrl = pdfUrl || "";
+      currentPdfRole = roleName || "";
+      pdfScrollTop = targetScrollTop || 0;
+
       const roleContainer = document.getElementById("role-container");
       const viewer = document.getElementById("pdfViewer");
       const status = document.getElementById("pdfStatus");
 
-      roleContainer.classList.add("pdf-mode");   // hides role-stage
+      roleContainer.classList.add("pdf-mode");
       viewer.style.display = "block";
       viewer.innerHTML = "";
       viewer.scrollTop = 0;
@@ -675,13 +1359,11 @@
       try {
         const loadingTask = pdfjsLib.getDocument({ url: pdfUrl });
         const pdf = await loadingTask.promise;
-
         status.textContent = "Rendering pages...";
 
-        const targetWidth = 920; // fit inside 960 with padding
+        const targetWidth = 920;
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
           const page = await pdf.getPage(pageNum);
-
           const viewport1 = page.getViewport({ scale: 1 });
           const scale = targetWidth / viewport1.width;
           const viewport = page.getViewport({ scale });
@@ -698,113 +1380,216 @@
         }
 
         status.style.display = "none";
+        viewer.scrollTop = targetScrollTop || 0;
+        queueCloudSave();
       } catch (err) {
         console.error("PDF.js render error:", err);
-        status.textContent = "Failed to load PDF (see Console).";
+        status.textContent = "Failed to load PDF.";
       }
     }
 
     function initSecondCanvasHotspots() {
       document.getElementById("hotspot-officer").addEventListener("click", function() {
-        renderPdfIntoSecondCanvas("https://daryeaye.github.io/geotopia/GT1%20Officer+.pdf");
+        renderPdfIntoSecondCanvas(ROLE_PDF_URLS.officer, "officer", 0);
       });
 
       document.getElementById("hotspot-professor").addEventListener("click", function() {
-        renderPdfIntoSecondCanvas("https://daryeaye.github.io/geotopia/GT1%20Professor+.pdf");
+        renderPdfIntoSecondCanvas(ROLE_PDF_URLS.professor, "professor", 0);
       });
 
       document.getElementById("hotspot-hacker").addEventListener("click", function() {
-        renderPdfIntoSecondCanvas("https://daryeaye.github.io/geotopia/GT1%20Hacker+.pdf");
+        renderPdfIntoSecondCanvas(ROLE_PDF_URLS.hacker, "hacker", 0);
       });
 
       document.getElementById("hotspot-video").addEventListener("click", function() {
         window.open("https://www.youtube.com/watch?v=Fj98o3aFfk8", "_blank");
       });
+
+      document.getElementById("pdfViewer").addEventListener("scroll", function() {
+        pdfScrollTop = this.scrollTop;
+        queueCloudSave();
+      });
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-      initPdfJs();
-      showPage(currentPage);
-      setupPersistence();
-      setupPage3Listeners();
-      initSecondCanvasHotspots();
-    });
-  </script>
-
-  <script>
-    /* -----------------------------
-       Translation screenshot tool (same as original)
-       ----------------------------- */
-    document.getElementById("select-text").addEventListener("click", function() {
-      const o = document.createElement("div");
-      o.id = "selection-overlay";
-      document.body.appendChild(o);
-
-      let sX, sY, sB;
-
-      o.addEventListener("mousedown", function(e) {
-        sX = e.clientX;
-        sY = e.clientY;
-
-        sB = document.createElement("div");
-        sB.id = "selection-box";
-        sB.style.left = sX + "px";
-        sB.style.top = sY + "px";
-        sB.style.width = "0px";
-        sB.style.height = "0px";
-        o.appendChild(sB);
-
-        function mH(e) {
-          const cX = e.clientX, cY = e.clientY;
-          const l = Math.min(sX, cX), t = Math.min(sY, cY);
-          const w = Math.abs(cX - sX), h = Math.abs(cY - sY);
-          sB.style.left = l + "px";
-          sB.style.top = t + "px";
-          sB.style.width = w + "px";
-          sB.style.height = h + "px";
+    function initOpenFileButton() {
+      document.getElementById("openFileBtn").addEventListener("click", function() {
+        if (!currentPdfUrl) {
+          showMessagePopup("Please select a role file first.");
+          return;
         }
+        window.open(currentPdfUrl, "_blank");
+      });
+    }
 
-        function uH() {
-          o.removeEventListener("mousemove", mH);
-          o.removeEventListener("mouseup", uH);
+    function initCloudSaveInputs() {
+      getPageInputElements().forEach(el => {
+        el.addEventListener("input", function() {
+          refreshPage3State();
+          queueCloudSave();
+        });
+      });
+    }
 
-          const r = sB.getBoundingClientRect();
-          document.body.removeChild(o);
+    function initTranslatorWidget() {
+      const widget = document.getElementById("side-widget");
+      const collapseBtn = document.getElementById("collapse-widget");
 
-          const T = document.getElementById("container");
-          const TR = T.getBoundingClientRect();
+      widget.addEventListener("click", function () {
+        if (widget.classList.contains("collapsed")) {
+          widget.classList.remove("collapsed");
+        }
+      });
 
-          html2canvas(T, { useCORS: true, allowTaint: false }).then(canvas => {
-            const sf = canvas.width / TR.width;
-            const sx = (r.left - TR.left) * sf;
-            const sy = (r.top - TR.top) * sf;
-            const sw = r.width * sf;
-            const sh = r.height * sf;
+      collapseBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        widget.classList.add("collapsed");
+      });
+    }
 
-            const cc = document.createElement("canvas");
-            cc.width = sw;
-            cc.height = sh;
+    function initTranslationScreenshotTool() {
+      document.getElementById("select-text").addEventListener("click", function() {
+        const o = document.createElement("div");
+        o.id = "selection-overlay";
+        document.body.appendChild(o);
 
-            const ctx = cc.getContext("2d");
-            ctx.drawImage(canvas, sx, sy, sw, sh, 0, 0, sw, sh);
+        let sX, sY, sB;
 
-            cc.toBlob(blob => {
-              if (blob) {
+        o.addEventListener("mousedown", function(e) {
+          sX = e.clientX;
+          sY = e.clientY;
+
+          sB = document.createElement("div");
+          sB.id = "selection-box";
+          sB.style.left = sX + "px";
+          sB.style.top = sY + "px";
+          sB.style.width = "0px";
+          sB.style.height = "0px";
+          o.appendChild(sB);
+
+          function mH(e) {
+            const cX = e.clientX, cY = e.clientY;
+            const l = Math.min(sX, cX), t = Math.min(sY, cY);
+            const w = Math.abs(cX - sX), h = Math.abs(cY - sY);
+            sB.style.left = l + "px";
+            sB.style.top = t + "px";
+            sB.style.width = w + "px";
+            sB.style.height = h + "px";
+          }
+
+          function uH() {
+            o.removeEventListener("mousemove", mH);
+            o.removeEventListener("mouseup", uH);
+
+            const r = sB.getBoundingClientRect();
+            document.body.removeChild(o);
+
+            const T = document.getElementById("container");
+            const TR = T.getBoundingClientRect();
+
+            html2canvas(T, { useCORS: true, allowTaint: false }).then(canvas => {
+              const sf = canvas.width / TR.width;
+              const sx = (r.left - TR.left) * sf;
+              const sy = (r.top - TR.top) * sf;
+              const sw = r.width * sf;
+              const sh = r.height * sf;
+
+              const cc = document.createElement("canvas");
+              cc.width = sw;
+              cc.height = sh;
+
+              const ctx = cc.getContext("2d");
+              ctx.drawImage(canvas, sx, sy, sw, sh, 0, 0, sw, sh);
+
+              cc.toBlob(blob => {
+                if (!blob) return;
+
                 const itm = new ClipboardItem({ "image/png": blob });
                 navigator.clipboard.write([itm]).then(() => {
-                  alert("Screenshot copied to clipboard.");
+                  showMessagePopup("Screenshot copied to clipboard.");
                 }).catch(err => {
                   console.error("Failed to copy screenshot to clipboard", err);
-                  alert("Failed to copy screenshot to clipboard.");
+                  showMessagePopup("Failed to copy screenshot to clipboard.");
                 });
-              }
+              });
             });
-          });
-        }
+          }
 
-        o.addEventListener("mousemove", mH);
-        o.addEventListener("mouseup", uH);
+          o.addEventListener("mousemove", mH);
+          o.addEventListener("mouseup", uH);
+        });
       });
+    }
+
+    function showTutorial() {
+      const alreadySeen = localStorage.getItem(TUTORIAL_STORAGE_KEY);
+      if (alreadySeen === "yes") {
+        maybeRequireAuthOverlay();
+        return;
+      }
+
+      tutorialIndex = 0;
+      document.getElementById("tutorialImage").src = TUTORIAL_IMAGES[tutorialIndex];
+      document.getElementById("tutorialOverlay").style.display = "flex";
+    }
+
+    function nextTutorialSlide() {
+      tutorialIndex++;
+      if (tutorialIndex >= TUTORIAL_IMAGES.length) {
+        document.getElementById("tutorialOverlay").style.display = "none";
+        localStorage.setItem(TUTORIAL_STORAGE_KEY, "yes");
+        maybeRequireAuthOverlay();
+        return;
+      }
+      document.getElementById("tutorialImage").src = TUTORIAL_IMAGES[tutorialIndex];
+    }
+
+    function initTutorial() {
+      document.getElementById("tutorialNext").addEventListener("click", nextTutorialSlide);
+      TUTORIAL_IMAGES.forEach(url => {
+        const pre = new Image();
+        pre.src = url;
+      });
+      showTutorial();
+    }
+
+    document.addEventListener("DOMContentLoaded", async function() {
+      restoreSessionLocally();
+      initPdfJs();
+      initSecondCanvasHotspots();
+      initOpenFileButton();
+      initTranslatorWidget();
+      initTranslationScreenshotTool();
+      initCloudSaveInputs();
+      refreshPage3State();
+
+      document.getElementById("introBtn").addEventListener("click", openIntro);
+      document.getElementById("authRegisterBtn").addEventListener("click", registerUser);
+      document.getElementById("authLoginBtn").addEventListener("click", loginUser);
+      document.getElementById("logoutBtn").addEventListener("click", logoutUser);
+      document.getElementById("prev-btn").addEventListener("click", prevPage);
+      document.getElementById("next-btn").addEventListener("click", nextPage);
+      document.getElementById("unlockBtn").addEventListener("click", unlockPage20);
+
+      document.getElementById("auth-password").addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          loginUser();
+        }
+      });
+
+      showPage(currentPage);
+
+      if (authToken) {
+        try {
+          await loadProgressFromServer();
+        } catch (err) {
+          console.error(err);
+          clearSessionLocally();
+          showPage(currentPage);
+        }
+      }
+
+      initTutorial();
     });
   </script>
 
