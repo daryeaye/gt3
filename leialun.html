@@ -1303,22 +1303,23 @@
       }
     }
 
-    async function unlockPage20() {
-      const i = document.getElementById("p20box");
-      const v = i.value.trim().toLowerCase();
+async function unlockPage20() {
+  const i = document.getElementById("p20box");
+  const v = i.value.trim().toLowerCase();
 
-      if (v === "41.5li") {
-        window.open("https://daryeaye.github.io/geotopia/bamu.pdf", "_blank");
-        await runCanvasTransition(() => {
-          showPage(21);
-        });
-        queueCloudSave();
-      } else if (v === "41.5") {
-        showMessagePopup("✅Great! Now ask the Merchant to help.");
-      } else {
-        showMessagePopup("❗Nothing happened. Master Li is waiting.");
-      }
-    }
+  if (v === "41.5li") {
+    i.value = "";
+    window.open("https://daryeaye.github.io/geotopia/bamu.pdf", "_blank");
+    await runCanvasTransition(() => {
+      showPage(21);
+    });
+    queueCloudSave();
+  } else if (v === "41.5") {
+    showMessagePopup("✅Great! Now ask the Merchant to help.");
+  } else {
+    showMessagePopup("❗Nothing happened. Master Li is waiting.");
+  }
+}
 
     function exitPdfMode() {
       const roleContainer = document.getElementById("role-container");
