@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Merchant's Quest 2</title>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+
   <style>
     body, html {
       margin: 0;
@@ -15,17 +16,20 @@
       background: url('https://daryeaye.github.io/geotopia/thatsit2.png') no-repeat center center fixed;
       background-size: cover;
     }
+
     #app-container {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
     #header {
       width: 960px;
       background: #eee;
       padding: 10px;
       margin-bottom: 10px;
     }
+
     #container {
       position: relative;
       width: 960px;
@@ -34,6 +38,7 @@
       background: white;
       overflow: hidden;
     }
+
     .page {
       position: absolute;
       top: 0;
@@ -45,12 +50,26 @@
       background-position: center;
       background-repeat: no-repeat;
     }
+
     .page.active {
       display: block;
     }
+
     .box {
       position: absolute;
     }
+
+    .transparent-box {
+      position: absolute;
+      left: 84px;
+      top: 123px;
+      width: 229px;
+      height: 268px;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
     button {
       font-family: "Caveat", cursive;
       font-size: 20px;
@@ -60,6 +79,7 @@
       margin: 0 5px;
       cursor: pointer;
     }
+
     /* --- Side Widget CSS --- */
     #side-widget {
       position: fixed;
@@ -74,11 +94,13 @@
       font-family: 'Caveat', cursive;
       z-index: 999;
     }
+
     #side-widget p.title {
       font-size: 24px;
       text-align: center;
       margin: 0 0 10px;
     }
+
     #side-widget button,
     #side-widget a {
       display: block;
@@ -92,6 +114,7 @@
       text-decoration: none;
       color: inherit;
     }
+
     /* Selection overlay styles */
     #selection-overlay {
       position: fixed;
@@ -102,6 +125,7 @@
       cursor: crosshair;
       z-index: 1000;
     }
+
     #selection-box {
       position: absolute;
       border: 2px dashed red;
@@ -109,13 +133,29 @@
     }
   </style>
 </head>
+
 <body>
   <div id="app-container">
     <div id="container">
-      <div id="page1" class="page active" style="background-image: url('https://daryeaye.github.io/gt3/3-22.jpg');"></div>
-      <div id="page2" class="page" style="background-image: url('https://daryeaye.github.io/gt3/3-23.jpg');"></div>
-      <div id="page3" class="page" style="background-image: url('https://daryeaye.github.io/gt3/3-24.jpg');"></div>
+
+      <!-- New Page 1 -->
+      <div id="page1" class="page active" style="background-image: url('https://daryeaye.github.io/gt10/0.jpg');">
+        <a href="https://daryeaye.github.io/gt10/0.jpg" target="_blank">
+          <div class="transparent-box"></div>
+        </a>
+      </div>
+
+      <!-- Original Page 1, now Page 2 -->
+      <div id="page2" class="page" style="background-image: url('https://daryeaye.github.io/gt3/3-22.jpg');"></div>
+
+      <!-- Original Page 2, now Page 3 -->
+      <div id="page3" class="page" style="background-image: url('https://daryeaye.github.io/gt3/3-23.jpg');"></div>
+
+      <!-- Original Page 3, now Page 4 -->
+      <div id="page4" class="page" style="background-image: url('https://daryeaye.github.io/gt3/3-24.jpg');"></div>
+
     </div>
+
     <div id="nav-buttons">
       <button id="prev-btn" onclick="prevPage()">Previous</button>
       <button id="next-btn" onclick="nextPage()">Next</button>
@@ -135,6 +175,7 @@
   
   <!-- --- Side Widget and Main Code Scripts --- -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
   <script>
     document.getElementById('select-text').addEventListener('click', function() {
       // Create overlay for user selection
@@ -163,6 +204,7 @@
           const rectTop = Math.min(startY, currentY);
           const rectWidth = Math.abs(currentX - startX);
           const rectHeight = Math.abs(currentY - startY);
+
           selectionBox.style.left = rectLeft + 'px';
           selectionBox.style.top = rectTop + 'px';
           selectionBox.style.width = rectWidth + 'px';
@@ -176,7 +218,7 @@
           const boxRect = selectionBox.getBoundingClientRect();
           document.body.removeChild(overlay);
           
-          // Capture the main content area (using "container" from your main code)
+          // Capture the main content area
           const target = document.getElementById('container');
           const targetRect = target.getBoundingClientRect();
           
@@ -191,6 +233,7 @@
             const croppedCanvas = document.createElement('canvas');
             croppedCanvas.width = sWidth;
             croppedCanvas.height = sHeight;
+
             const ctx = croppedCanvas.getContext('2d');
             ctx.drawImage(canvas, sx, sy, sWidth, sHeight, 0, 0, sWidth, sHeight);
             
@@ -217,13 +260,14 @@
   
   <script>
     let currentPage = 1;
-    const totalPages = 3;
+    const totalPages = 4;
     let maxPageVisited = 1;
 
     function showPage(pageNum) {
       for (let i = 1; i <= totalPages; i++) {
         document.getElementById('page' + i).classList.remove('active');
       }
+
       document.getElementById('page' + pageNum).classList.add('active');
 
       document.getElementById("prev-btn").style.display = pageNum === 1 ? "none" : "inline-block";
@@ -247,7 +291,10 @@
 
     function confirmName() {
       const nameInput = document.getElementById("username");
+      if (!nameInput) return;
+
       const name = nameInput.value.trim();
+
       if (name !== "") {
         localStorage.setItem("username", name);
         nameInput.disabled = true;
@@ -260,6 +307,9 @@
     function setupPersistence() {
       const storedName = localStorage.getItem("username");
       const nameInput = document.getElementById("username");
+
+      if (!nameInput) return;
+
       if (storedName !== null && storedName !== "") {
         nameInput.value = storedName;
         nameInput.disabled = true;
